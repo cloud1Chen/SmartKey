@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.itel.smartkey.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:background="?attr/colorPrimary"
+        android:id="@+id/toolbar"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_width="match_parent" >
+    </android.support.v7.widget.Toolbar>
+
+    <Button
+        android:id="@+id/open_menuActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="单击"/>
+    <Button
+        android:id="@+id/open_selectActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="进入选择联系人界面"/>
+</LinearLayout>
