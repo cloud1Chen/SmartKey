@@ -8,12 +8,8 @@
     android:orientation="vertical"
     tools:context="com.itel.smartkey.MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:background="?attr/colorPrimary"
-        android:id="@+id/toolbar"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_width="match_parent" >
-    </android.support.v7.widget.Toolbar>
+    <include
+        layout="@layout/toolbar_layout"/>
 
     <Button
         android:id="@+id/open_menuActivity"
@@ -25,4 +21,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="进入选择联系人界面"/>
+    <Button
+        android:id="@+id/open_setuososcontactsinfoactivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="进入SOS设置界面"/>
+    <Button
+        android:id="@+id/open_systemUI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="打开下拉通知栏"/>
+    <Button
+        android:id="@+id/bt_screenShot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="手机截图"/>
 </LinearLayout>

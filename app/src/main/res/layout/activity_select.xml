@@ -6,12 +6,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.itel.smartkey.ui.phone.SelectActivity">
-    <android.support.v7.widget.Toolbar
-        android:background="@color/colorPrimary"
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"/>
+    tools:context="com.itel.smartkey.ui.phone.SelectContactsActivity">
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"/>-->
+    <include
+        layout="@layout/toolbar_layout"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleview_selectPhone"
         android:layout_width="match_parent"

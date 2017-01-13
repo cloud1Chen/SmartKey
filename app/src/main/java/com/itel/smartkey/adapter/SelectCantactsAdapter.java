@@ -16,15 +16,19 @@ import java.util.List;
  * Created by huorong.liang on 2017/1/6.
  */
 
-public class SelectCantactsAdapter extends RecyclerView.Adapter<ContactsViewHolder> {
+public class SelectCantactsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context mContext;
     List<ContactsBean> mList;
-    OnRecycleViewItemClickListener onItemClickListener;
+    onItemClickListener mOnItemClickListener;
 
-    public void setOnRecycleViewItemClickListener(OnRecycleViewItemClickListener onItemClickListener){
-        this.onItemClickListener = onItemClickListener;
+    public void setOnItemClickListener(SelectCantactsAdapter.onItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
     }
 
+    public interface onItemClickListener{
+        void onItemClick(View view, int position);
+        void onItemLongClick(View view, int position);
+    }
 
     public SelectCantactsAdapter(Context mContext, List<ContactsBean> mList) {
         this.mList = mList;
@@ -36,36 +40,65 @@ public class SelectCantactsAdapter extends RecyclerView.Adapter<ContactsViewHold
         this.notifyDataSetChanged();
     }
 
+    public void addDatas(List<ContactsBean> mList){
+        this.mList.addAll(mList);
+        this.notifyDataSetChanged();
+    }
+
+    //添加一项
+    public void addItem(int position, ContactsBean bean){
+        mList.add(position, bean);
+        notifyItemInserted(position);
+    }
+
+    //删除一项
+    public void removeItem(int position){
+        mList.remove(position);
+        notifyItemRemoved(position);
+    }
+
     @Override
-    public ContactsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.contacts_item_layout, parent, false);
         return new ContactsViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ContactsViewHolder holder, final int position) {
-        holder.tv_name.setText(mList.get(position).getName());
-        holder.tv_name.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+        final ContactsViewHolder viewHolder = (ContactsViewHolder) holder;
+        viewHolder.tv_name.setText(mList.get(position).getName());
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (onItemClickListener != null){
-                    onItemClickListener.onItemClick(holder.tv_name, position);
+                if (mOnItemClickListener != null){
+                    mOnItemClickListener.onItemClick(viewHolder.itemView, position);
                 }
+            }
+        });
+        viewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (mOnItemClickListener != null){
+                    mOnItemClickListener.onItemLongClick(viewHolder.itemView, viewHolder.getLayoutPosition());
+                }
+                return true;
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mList != null ? mList.size() : 0;
+    }
+
+    class ContactsViewHolder extends RecyclerView.ViewHolder{
+        TextView tv_name;
+
+        public ContactsViewHolder(View itemView) {
+            super(itemView);
+            tv_name = (TextView) itemView.findViewById(R.id.contacts_item_name);
+        }
     }
 }
 
-class ContactsViewHolder extends RecyclerView.ViewHolder{
-    TextView tv_name;
 
-    public ContactsViewHolder(View itemView) {
-        super(itemView);
-        tv_name = (TextView) itemView.findViewById(R.id.contacts_item_name);
-    }
-}

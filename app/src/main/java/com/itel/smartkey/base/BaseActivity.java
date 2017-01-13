@@ -41,4 +41,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         });
     };
+
+
+
+    public <T extends View> T findViewByIds(int id){
+        View mView = this.findViewById(id);
+        return (T) mView;
+    }
 }

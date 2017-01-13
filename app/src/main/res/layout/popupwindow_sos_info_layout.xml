@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:background="#ffffff"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+    <TextView
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="发信息给"
+        android:textSize="18sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:background="@drawable/sos_info_edittext_shape"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="10dp"
+            android:inputType="phone"
+            android:id="@+id/et_sos_phoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="输入号码"/>
+
+        <ImageView
+            android:id="@+id/iv_gotochoose_contacts"
+            android:src="@mipmap/ic_launcher"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:clickable="true"
+            android:scaleType="fitXY"/>
+    </LinearLayout>
+
+    <EditText
+        android:background="@drawable/sos_info_edittext_shape"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="10dp"
+        android:id="@+id/et_sos_message"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:hint="求救信息"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="9dp"
+            android:textSize="16sp"
+            android:background="@drawable/sos_info_button_shape"
+            android:id="@+id/bt_sos_cancel"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:text="取消"/>
+
+        <Button
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="18dp"
+            android:background="@drawable/sos_info_button_shape"
+            android:id="@+id/bt_sos_ok"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:text="确定"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -6,10 +6,17 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!-- recycleview的item的下划线-->
+        <item name="android:listDivider">@drawable/select_contatcs_divider</item>
     </style>
     <!--<style name="AppTheme.Base" parent="Theme.AppCompat">-->
         <!--<item name="windowActionBar">false</item>-->
         <!--<item name="android:windowNoTitle">true</item>-->
     <!--</style>-->
+    <style name="mypopwindow_anim_style">
+        <item name="android:windowEnterAnimation">@anim/popwindow_bottom_to_top_in</item>
+        <item name="android:windowExitAnimation">@anim/popupwindow_top_to_bottom_out</item>
+    </style>
+
 
 </resources>

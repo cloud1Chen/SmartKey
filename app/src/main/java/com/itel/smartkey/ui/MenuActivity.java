@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import com.itel.smartkey.R;
 import com.itel.smartkey.base.BaseActivity;
-import com.itel.smartkey.ui.phone.SelectActivity;
+import com.itel.smartkey.ui.phone.SelectContactsActivity;
 
 /**
  * Created by huorong.liang on 2017/1/6.
@@ -45,7 +45,7 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.fun_select_cantacts:
-                Intent in = new Intent(this, SelectActivity.class);
+                Intent in = new Intent(this, SelectContactsActivity.class);
                 startActivity(in);
                 break;
         }
