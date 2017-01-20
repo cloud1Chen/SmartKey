@@ -25,7 +25,6 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        initToolbar(toolbar, true, "工具箱");
         fun_select_contacts = (Button) findViewById(R.id.fun_select_cantacts);
 
     }

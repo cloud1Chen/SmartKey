@@ -52,7 +52,7 @@ public class SetupSOSContactsInfoActivity extends BaseActivity implements View.O
         mContext = this;
         //toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        initToolbar(toolbar, true, "设置SOS信息");
+        initToolbar(toolbar, R.mipmap.pic_back_bar_black, "设置SOS信息", false, "505050", "f3f4f5");
         //parent
         rootView = findViewById(R.id.activity_setupsoscontactsinfo);
         rootView.post(new Runnable() {
@@ -85,7 +85,7 @@ public class SetupSOSContactsInfoActivity extends BaseActivity implements View.O
         mSOSPopupWindow = new PopupWindow(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mSOSPopupWindow.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);//设置弹出窗体需要软键盘
         mSOSPopupWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);//设置popupwindow往上移以适应软键盘高度
-        mSOSPopupWindow.setFocusable(true);//设置popupWindow可以获取焦点，则里面的edittext可以获取到焦点，相应输入事件。
+        mSOSPopupWindow.setFocusable(true);//设置popupWindow可以获取焦点，则里面的edittext可以获取到焦点，响应输入事件。
                                              // 但是activity上的其他控件不能再获取焦点（不能响应事件），除非popupWindow消失
         mSOSPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override

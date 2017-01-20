@@ -2,4 +2,23 @@
     <string name="app_name">SmartKey</string>
     <string name="select_function">功能菜单</string>
     <string name="please_select_number">请选择号码</string>
+
+    <!-- add lhr 20170119  -->
+    <string name="open_an_app">打开APP</string>
+    <string name="camera">拍照</string>
+    <string name="beauty_selfie">美颜相机</string>
+    <string name="click_accelerate">一键加速</string>
+    <string name="notification_bar">打开通知栏</string>
+    <string name="screenshot">截屏</string>
+    <string name="flash_light">手电筒</string>
+    <string name="standby_camera">息屏拍照</string>
+    <string name="open_an_url">打开网址</string>
+    <string name="call_phone">打电话给</string>
+    <string name="listen_to_radio">打开收音机并调台至...</string>
+    <string name="share_pic_to_facebook">拍照并分享相片到Facebook</string>
+    <string name="sos">SOS</string>
+    
+    <string name="no_add_any_function">您还没有添加任何入口</string>
+    <string name="add_now">立刻添加</string>
+
 </resources>

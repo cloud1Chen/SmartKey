@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
+ * 选择联系人、快捷菜单、选择应用的recycleview的分割线，如果需要更改
+ * 则更改AppTheme 下的 <item name="android:listDivider">@drawable/select_contatcs_divider</item>  即可
  * Created by huorong.liang on 2017/1/9.
  */
 

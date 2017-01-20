@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -26,6 +27,7 @@ import com.itel.smartkey.adapter.SelectContactsNumberAdapter;
 import com.itel.smartkey.base.BaseActivity;
 import com.itel.smartkey.bean.ContactsBean;
 import com.itel.smartkey.utils.ContactsUtils;
+import com.itel.smartkey.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +53,9 @@ public class SelectContactsActivity extends BaseActivity {
     private SelectContactsNumberAdapter mSelectContactsNumberAdapter;
     private List<String> mNumbers = new ArrayList<>();
 
+    private View rootView;
+
+
     @Override
     protected int getResultId() {
         return R.layout.activity_select;
@@ -59,6 +64,7 @@ public class SelectContactsActivity extends BaseActivity {
     @Override
     protected void initView() {
         mContext = this;
+        rootView = findViewById(R.id.activity_select);
 
         intent = getIntent();
         isSetSOSInfo = intent.getBooleanExtra("isFromSetupSOS", false);
@@ -72,7 +78,7 @@ public class SelectContactsActivity extends BaseActivity {
 
         //toobar初始化
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        initToolbar(toolbar, true, "选择联系人");
+        initToolbar(toolbar, R.mipmap.pic_back_bar_black, "选择联系人", false, "505050", "f3f4f5");
 
         //recycleview相关的初始化
         recyclerView = (RecyclerView) findViewById(R.id.recycleview_selectPhone);
@@ -90,7 +96,7 @@ public class SelectContactsActivity extends BaseActivity {
                         mNumbers.clear();
                         mNumbers.addAll(mDatas.get(position).getPhones());
                         mSelectContactsNumberAdapter.setDatas(mNumbers);
-                        mPopupWindow.showAtLocation(findViewById(R.id.activity_select), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+                        showPopupWindow();
                     } else if (mPopupWindow.isShowing()) {
                         mPopupWindow.dismiss();
                     }
@@ -126,6 +132,8 @@ public class SelectContactsActivity extends BaseActivity {
             }
         });
         recyclerView.setAdapter(mAdapter);
+//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SimpleItemTouchHelperCallback(mAdapter));
+//        itemTouchHelper.attachToRecyclerView(recyclerView);
         //初始化PopupWindow
         initPopupWindow();
     }
@@ -164,9 +172,18 @@ public class SelectContactsActivity extends BaseActivity {
         recyclerViewSelectNum.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         recyclerViewSelectNum.addItemDecoration(new SelectContactsItemDecoration(mContext, SelectContactsItemDecoration.VERTICAL_LIST));
         recyclerViewSelectNum.setAdapter(mSelectContactsNumberAdapter);
-        mPopupWindow = new PopupWindow(popupWindow, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        mPopupWindow.setTouchable(true);
+        mPopupWindow = new PopupWindow(popupWindow, ViewGroup.LayoutParams.MATCH_PARENT, Utils.dip2px(mContext, 240));
+        mPopupWindow.setFocusable(true);//设置popupWindow可以获取焦点，则里面的edittext可以获取到焦点，响应输入事件。
+                                          // 但是activity上的其他控件不能再获取焦点（不能响应事件），除非popupWindow消失
+        mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
         mPopupWindow.setOutsideTouchable(true);
+        mPopupWindow.setTouchable(true);
+        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                Utils.setWindowBackgroundAlpha(mContext, 1f);//当popupWindow关闭时，把window设置回完全透明（没有变灰）
+            }
+        });
     }
 
     @Override
@@ -185,6 +202,17 @@ public class SelectContactsActivity extends BaseActivity {
         }
         mAdapter.setDatas(mDatas);
         Log.d("LHRTAG", "mDatas.size()" + mDatas.size()  );
+    }
+
+
+    /**
+     * 展示popupWindow
+     */
+    private void showPopupWindow(){
+        if (mPopupWindow!=null && !mPopupWindow.isShowing()){
+            mPopupWindow.showAtLocation(rootView, Gravity.BOTTOM, 0, 0);
+            Utils.setWindowBackgroundAlpha(mContext, 0.4f);
+        }
     }
 
     //申请权限是否成功的回调

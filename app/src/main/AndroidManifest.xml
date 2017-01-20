@@ -2,15 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.itel.smartkey">
 
-    <!-- 读联系人权限 -->
+    <!-- 打电话的权限 -->
     <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <!-- 读联系人权限 -->
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <!-- 写联系人权限 -->
-    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
 
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>
+    <!--打开闪光灯的权限-->
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <!-- 读联系人权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <!-- 震动的权限 -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
         android:allowBackup="true"
@@ -18,32 +24,87 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+
+        <!-- 主界面 -->
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme.ImmersiveTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <activity android:name=".ui.MenuActivity"/>
 
-        <activity android:name=".ui.phone.SelectContactsActivity">
+        <!-- 选择联系人界面 -->
+        <activity android:name=".ui.phone.SelectContactsActivity"
+            android:theme="@style/AppTheme.ImmersiveTheme">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <action android:name="com.itel.smartkey.action.SelectContactsActivity"/>
             </intent-filter>
-        </activity>
-
-        <activity android:name=".ui.sos.SetupSOSContactsInfoActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
-
-        <activity android:name=".receivertest.SentBroadcastActivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN"/>-->
+
                 <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             <!--</intent-filter>-->
         </activity>
+
+        <!-- 设置sos联系人的界面 -->
+        <activity
+            android:name=".ui.sos.SetupSOSContactsInfoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+            <intent-filter>
+                <action android:name="com.itel.smartkey.action.SetupSOSContactsInfoActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".receivertest.SentBroadcastActivity">
+        </activity>
+
+        <!-- 选择功能界面 -->
+        <activity android:name=".ui.function.FunctionListActivity"
+                  android:theme="@style/AppTheme.ImmersiveTheme">
+            <intent-filter>
+                <action android:name="com.itel.smartkey.action.FunctionListActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+
+        <!-- 主app里的工具箱界面 -->
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".ui.toolbox.FrontToolBoxActivity"
+            android:theme="@style/AppTheme.ImmersiveTheme"
+            >
+            <intent-filter>
+                <action android:name="com.itel.smartkey.action.FrontToolBoxActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <!-- 单击smartkey弹出的菜单界面 -->
+        <activity android:name=".ui.toolbox.DialogMenuActivity"
+                  android:theme="@style/dialogstyle">
+            <intent-filter>
+                <action android:name="com.itel.smartkey.action.DialogMenuActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".receivertest.TestActivity"
+                  android:theme="@style/dialogstyle">
+            <intent-filter>
+                <action android:name="com.itel.smartkey.action.TestActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
 
         <!--接收单击双击长按的receiver-->
         <receiver android:name=".receivertest.OneClickReceiver">

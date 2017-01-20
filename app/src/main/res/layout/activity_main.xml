@@ -5,35 +5,222 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/pic_bg"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context="com.itel.smartkey.MainActivity">
 
     <include
         layout="@layout/toolbar_layout"/>
 
-    <Button
-        android:id="@+id/open_menuActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="单击"/>
-    <Button
-        android:id="@+id/open_selectActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="进入选择联系人界面"/>
-    <Button
-        android:id="@+id/open_setuososcontactsinfoactivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="进入SOS设置界面"/>
-    <Button
-        android:id="@+id/open_systemUI"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="打开下拉通知栏"/>
-    <Button
-        android:id="@+id/bt_screenShot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="手机截图"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="239dp">
+
+        <LinearLayout
+            android:layout_width="262dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="Smart Key"
+                android:textColor="#FFFFFF"
+                android:textSize="27sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="One key to get what you need"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- 手机背景图 -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/pic_main_phone"/>
+
+        <!-- 分割线 -->
+        <View
+            android:background="#FFFFFF"
+            android:layout_above="@+id/linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:id="@+id/linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <!-- 单击 -->
+            <RelativeLayout
+                android:clickable="true"
+                android:id="@+id/relativelayout_click"
+                android:background="@drawable/selector_relativelayout_click"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="16dp">
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/ib_click"
+                        android:scaleType="center"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@mipmap/pic_single_click"/>
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/tv_click"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="click"
+                        android:textColor="#343434"
+                        android:textSize="14sp"/>
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/tv_click_sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="openCamera"
+                        android:textColor="#8d8d8d"
+                        android:textSize="10sp"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- 分割线 -->
+            <View
+                android:background="#e5e5e5"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+
+            <!-- 双击 -->
+            <RelativeLayout
+                android:clickable="true"
+                android:id="@+id/relativelayout_double_click"
+                android:background="@drawable/selector_relativelayout_click"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="16dp">
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/ib_double_click"
+                        android:scaleType="center"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@mipmap/pic_double_click"/>
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/tv_double_click"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="click"
+                        android:textColor="#343434"
+                        android:textSize="14sp"/>
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/tv_double_click_sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="openCamera"
+                        android:textColor="#8d8d8d"
+                        android:textSize="10sp"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- 分割线 -->
+            <View
+                android:background="#e5e5e5"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"/>
+
+            <!-- 长按 -->
+            <RelativeLayout
+                android:clickable="true"
+                android:id="@+id/relativelayout_long_click"
+                android:background="@drawable/selector_relativelayout_click"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="16dp">
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/ib_long_click"
+                        android:scaleType="center"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@mipmap/pic_long_click"/>
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/tv_long_click"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="click"
+                        android:textColor="#343434"
+                        android:textSize="14sp"/>
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/tv_long_click_sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:text="openCamera"
+                        android:textColor="#8d8d8d"
+                        android:textSize="10sp"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">SmartKey</string>
     <string name="select_function">Select Function</string>
+    
+    <!-- add lhr 20170119  -->
+    <string name="open_an_app">Open an app</string>
+    <string name="camera">Camera</string>
+    <string name="beauty_selfie">Beauty Selfie</string>
+    <string name="click_accelerate">1-click accelerate</string>
+    <string name="notification_bar">Notification bar</string>
+    <string name="screenshot">Screenshot</string>
+    <string name="flash_light">Torch</string>
+    <string name="standby_camera">Standby-Camera</string>
+    <string name="open_an_url">Open an URL...</string>
+    <string name="call_phone">Make a call to...</string>
+    <string name="listen_to_radio">Listen to a radio station...</string>
+    <string name="share_pic_to_facebook">CAM to Facebook</string>
+    <string name="sos">SOS</string>
 
 </resources>

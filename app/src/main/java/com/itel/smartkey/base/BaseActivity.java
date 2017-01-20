@@ -1,11 +1,14 @@
 package com.itel.smartkey.base;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.itel.smartkey.R;
 
@@ -26,13 +29,53 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected abstract void initView();
     protected abstract void initListener();
     protected abstract void initData();
-    public void initToolbar(Toolbar toolbar, boolean homeAsUpEnabled, String title){
+
+
+    /**
+     * 初始化toolbar
+     * @param toolbar
+     * @param title 菜单名字
+     * @param isShowMenu 是否显示左边的菜单键
+     */
+    public void initToolbar(Toolbar toolbar, String title, boolean isShowMenu){
+        initToolbar(toolbar, -1, title, isShowMenu, null, null);
+    };
+
+    /**
+     * 初始化toolbar
+     * @param toolbar
+     * @param title 菜单名字
+     * @param isShowMenu 是否显示左边的菜单键
+     * @param color 菜单栏文字颜色
+     * @param backGroundColor toolbar背景栏颜色
+     */
+    public void initToolbar(Toolbar toolbar, String title, boolean isShowMenu, String color, String backGroundColor){
+        initToolbar(toolbar, -1, title, isShowMenu, color, backGroundColor);
+    };
+
+    /**
+     * 初始化toolbar
+     * @param toolbar
+     * @param naviIcon 返回键图标
+     * @param title 菜单栏名称
+     * @param isShowMenu 是否显示右边的菜单键
+     * @param color 菜单栏文字颜色
+     * @param backGroundColor 背景颜色
+     */
+    public void initToolbar(Toolbar toolbar, int naviIcon, String title, boolean isShowMenu, String color, String backGroundColor){
         toolbar.setTitle(title);
-        setSupportActionBar(toolbar);
-        if (homeAsUpEnabled){
-            toolbar.setNavigationIcon(R.drawable.ab_android);
+        if (color != null){//默认采用布局中的颜色
+            toolbar.setTitleTextColor(Color.parseColor("#" + color));
         }
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(homeAsUpEnabled);
+
+        if (backGroundColor != null){//默认采用布局中的颜色
+            toolbar.setBackgroundColor(Color.parseColor("#" + backGroundColor));
+        }
+
+        if (naviIcon != -1){
+            toolbar.setNavigationIcon(naviIcon);
+        }
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,9 +83,21 @@ public abstract class BaseActivity extends AppCompatActivity {
                 finish();
             }
         });
+        if (isShowMenu){
+            toolbar.inflateMenu(R.menu.toolbar_menu);
+        }
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.action_tool:
+                        Toast.makeText(getApplicationContext(), "打开工具箱", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
     };
-
-
 
     public <T extends View> T findViewByIds(int id){
         View mView = this.findViewById(id);

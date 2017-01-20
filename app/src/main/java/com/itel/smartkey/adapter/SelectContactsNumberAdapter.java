@@ -44,7 +44,7 @@ public class SelectContactsNumberAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.contacts_item_layout, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_layout_rv_select_contacts_number, parent, false);
         return new ContactsNumberViewHolder(view);
     }
 
