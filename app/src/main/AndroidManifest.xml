@@ -37,11 +37,18 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.MenuActivity"/>
+        <activity android:name=".ui.settings.MenuActivity"
+                  android:theme="@style/AppTheme.ImmersiveTheme">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="com.itel.smartkey.action.MenuActivity"/>
+            </intent-filter>
+        </activity>
 
         <!-- 选择联系人界面 -->
         <activity android:name=".ui.phone.SelectContactsActivity"
-            android:theme="@style/AppTheme.ImmersiveTheme">
+            android:theme="@style/AppTheme.ImmersiveTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <action android:name="com.itel.smartkey.action.SelectContactsActivity"/>
@@ -50,6 +57,20 @@
                 <!--<action android:name="android.intent.action.MAIN"/>-->
 
                 <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <!-- 选择联系人界面（排序） -->
+        <activity android:name=".ui.mycontactspaixutest.SelectContactsTestActivity"
+                  android:theme="@style/AppTheme.ImmersiveTheme">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="com.itel.smartkey.action.SelectContactsTestActivity"/>
+            </intent-filter>
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN"/>-->
+
+            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             <!--</intent-filter>-->
         </activity>
 
@@ -66,11 +87,22 @@
         <activity android:name=".receivertest.SentBroadcastActivity">
         </activity>
 
+        <!-- 设置网址界面 -->
+        <activity android:name=".ui.surfnet.SetupSurfNetUrlActivity"
+                  android:theme="@style/translucent"
+                  android:windowSoftInputMode="adjustResize|stateHidden"
+                  >
+            <intent-filter>
+                <action android:name="com.itel.smartkey.action.SetupSurfNetUrlActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
         <!-- 选择功能界面 -->
-        <activity android:name=".ui.function.FunctionListActivity"
+        <activity android:name=".ui.function.ChooseFunctionActivity"
                   android:theme="@style/AppTheme.ImmersiveTheme">
             <intent-filter>
-                <action android:name="com.itel.smartkey.action.FunctionListActivity"/>
+                <action android:name="com.itel.smartkey.action.ChooseFunctionActivity"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -97,13 +129,29 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".receivertest.TestActivity"
-                  android:theme="@style/dialogstyle">
+        <!-- 单击smartey弹出的菜单界面 -->
+        <activity android:name=".ui.toolbox.TestActivity"
+                  android:launchMode="singleTask"
+                  android:theme="@style/translucent">
             <intent-filter>
                 <action android:name="com.itel.smartkey.action.TestActivity"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+
+        <!-- 选择应用界面 -->
+        <activity android:name=".ui.function.ChooseAppsActivity"
+            android:theme="@style/AppTheme.ImmersiveTheme">
+            <intent-filter>
+                <action android:name="com.itel.smartkey.action.ChooseAppsActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.paixutext.CityActivity"/>
+
+
+
 
 
         <!--接收单击双击长按的receiver-->

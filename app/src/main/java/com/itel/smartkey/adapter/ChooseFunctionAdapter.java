@@ -10,22 +10,23 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.itel.smartkey.R;
-import com.itel.smartkey.bean.ContactsBean;
+import com.itel.smartkey.bean.FuncBean;
 import com.itel.smartkey.listener.ItemTouchHelperAdapter;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
+ * 选择功能菜单的recycleview的adapter
  * Created by huorong.liang on 2017/1/6.
  */
 
-public class SelectCantactsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
+public class ChooseFunctionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
     Context mContext;
-    List<ContactsBean> mList;
-    onItemClickListener mOnItemClickListener;
+    List<FuncBean> mList;
+    OnItemClickListener mOnItemClickListener;
 
-    public void setOnItemClickListener(SelectCantactsAdapter.onItemClickListener mOnItemClickListener) {
+    public void setOnItemClickListener(ChooseFunctionAdapter.OnItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 
@@ -50,28 +51,28 @@ public class SelectCantactsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     }
 
-    public interface onItemClickListener{
+    public interface OnItemClickListener{
         void onItemClick(View view, int position);
         void onItemLongClick(View view, int position);
     }
 
-    public SelectCantactsAdapter(Context mContext, List<ContactsBean> mList) {
+    public ChooseFunctionAdapter(Context mContext, List<FuncBean> mList) {
         this.mList = mList;
         this.mContext = mContext;
     }
 
-    public void setDatas(List<ContactsBean> mList){
+    public void setDatas(List<FuncBean> mList){
         this.mList = mList;
         this.notifyDataSetChanged();
     }
 
-    public void addDatas(List<ContactsBean> mList){
+    public void addDatas(List<FuncBean> mList){
         this.mList.addAll(mList);
         this.notifyDataSetChanged();
     }
 
     //添加一项
-    public void addItem(int position, ContactsBean bean){
+    public void addItem(int position, FuncBean bean){
         mList.add(position, bean);
         notifyItemInserted(position);
     }
@@ -84,15 +85,18 @@ public class SelectCantactsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_layout_rv_select_contacts, parent, false);
-        return new ContactsViewHolder(view);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_layout_rv_choose_function, parent, false);
+        return new ChooseFunctionViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        final ContactsViewHolder viewHolder = (ContactsViewHolder) holder;
-        viewHolder.tv_name.setText(mList.get(position).getName());
-        Glide.with(mContext).load(mList.get(position).getContactsPhotoBytes()).into(viewHolder.iv_select_contacts_icon);
+        final ChooseFunctionViewHolder viewHolder = (ChooseFunctionViewHolder) holder;
+//        Log.d("LHRTAG", mList.get(position).getFuncName());
+        viewHolder.tv_choose_function_name.setText(mList.get(position).getFuncName());
+        Glide.with(mContext).load(mList.get(position).getIconId()).into(viewHolder.iv_choose_function_icon);
+
+        //item的点击事件
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,14 +121,14 @@ public class SelectCantactsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return mList != null ? mList.size() : 0;
     }
 
-    class ContactsViewHolder extends RecyclerView.ViewHolder{
-        TextView tv_name;
-        ImageView iv_select_contacts_icon;
+    class ChooseFunctionViewHolder extends RecyclerView.ViewHolder{
+        TextView tv_choose_function_name;
+        ImageView iv_choose_function_icon;
 
-        public ContactsViewHolder(View itemView) {
+        public ChooseFunctionViewHolder(View itemView) {
             super(itemView);
-            tv_name = (TextView) itemView.findViewById(R.id.contacts_item_name);
-            iv_select_contacts_icon = (ImageView) itemView.findViewById(R.id.iv_select_contacts_icon);
+            tv_choose_function_name = (TextView) itemView.findViewById(R.id.tv_choose_function_name);
+            iv_choose_function_icon = (ImageView) itemView.findViewById(R.id.iv_choose_function_icon);
         }
     }
 }

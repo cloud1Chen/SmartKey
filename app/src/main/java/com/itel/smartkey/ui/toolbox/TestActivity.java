@@ -1,7 +1,9 @@
-package com.itel.smartkey.receivertest;
+package com.itel.smartkey.ui.toolbox;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +21,8 @@ import com.itel.smartkey.ui.phone.SelectContactsActivity;
 import java.util.ArrayList;
 
 /**
+ *
+ * 弹窗菜单，单击背部的smartkey，会弹出该activity，根据用户是否设置功能而提供两种布局
  * Created by huorong.liang on 2017/1/20.
  */
 
@@ -32,12 +36,19 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     public static int LAYOUT_MODE_NO_FUNCTION= 2;
     private int layoutMode;
 
+    private HomeKeyEventBroadCastReceiver receiver;
+
     private Button bt_addnow;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
+
+        // 注册监听HOME键的广播
+        receiver = new HomeKeyEventBroadCastReceiver();
+        registerReceiver(receiver, new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+
         mRvDatas = new ArrayList<>();
         initDatas();
         if (mRvDatas.size() > 0){
@@ -115,7 +126,41 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("LHRTAG", "onDestroy()");
+        unregisterReceiver(receiver);
+    }
+
+    @Override
     public void onClick(View view) {
         Log.d("LHRTAG", "onClick()");
     }
+
+    class HomeKeyEventBroadCastReceiver extends BroadcastReceiver {
+        static final String SYSTEM_REASON = "reason";
+        static final String SYSTEM_HOME_KEY = "homekey";
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+
+
+            String action = intent.getAction();
+            if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
+
+                Log.d("LHRTAG", "onReceive()");
+
+                String reason = intent.getStringExtra(SYSTEM_REASON);
+                if (reason != null) {
+                    if (reason.equals(SYSTEM_HOME_KEY)) {
+                        TestActivity.this.finish();//这里是你监听到HOME键要做什么，我这里是销毁Activity
+                    }
+                }
+            }
+        }
+    }
+
+
+
 }

@@ -2,4 +2,19 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="iv_choose_function_icon_width">36dp</dimen>
+    <dimen name="iv_choose_function_icon_height">36dp</dimen>
+    <dimen name="item_layout_rv_choose_function_height">64dp</dimen>
+    <dimen name="tv_choose_function_name_textsize">16sp</dimen>
+    
+    <dimen name="settings_item2_layout_height">64dp</dimen>
+    <dimen name="settings_item2_layout_height_title_text_size">16sp</dimen>
+    <dimen name="settings_item2_layout_height_subtitle_text_size">12sp</dimen>
+    <dimen name="setup_url_cancel_ok_textsize">16sp</dimen>
+
+    <dimen name="top">40dp</dimen>
+
+
+
 </resources>

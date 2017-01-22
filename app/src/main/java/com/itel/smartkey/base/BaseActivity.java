@@ -1,5 +1,6 @@
 package com.itel.smartkey.base;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -59,13 +60,13 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param naviIcon 返回键图标
      * @param title 菜单栏名称
      * @param isShowMenu 是否显示右边的菜单键
-     * @param color 菜单栏文字颜色
+     * @param titleTextColor 菜单栏文字颜色
      * @param backGroundColor 背景颜色
      */
-    public void initToolbar(Toolbar toolbar, int naviIcon, String title, boolean isShowMenu, String color, String backGroundColor){
+    public void initToolbar(Toolbar toolbar, int naviIcon, String title, boolean isShowMenu, String titleTextColor, String backGroundColor){
         toolbar.setTitle(title);
-        if (color != null){//默认采用布局中的颜色
-            toolbar.setTitleTextColor(Color.parseColor("#" + color));
+        if (titleTextColor != null){//默认采用布局中的颜色
+            toolbar.setTitleTextColor(Color.parseColor("#" + titleTextColor));
         }
 
         if (backGroundColor != null){//默认采用布局中的颜色
@@ -92,6 +93,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     case R.id.action_tool:
                         Toast.makeText(getApplicationContext(), "打开工具箱", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent();
+                        intent.setAction("com.itel.smartkey.action.MenuActivity");
+                        startActivity(intent);
                         break;
                 }
                 return true;

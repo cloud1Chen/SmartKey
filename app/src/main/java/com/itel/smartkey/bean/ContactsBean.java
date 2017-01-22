@@ -9,8 +9,7 @@ import java.util.ArrayList;
  * Created by huorong.liang on 2017/1/6.
  */
 
-public class ContactsBean {
-    private String name;
+public class ContactsBean extends ShortModel{
     private ArrayList<String> phones;
     private Bitmap contactsBitmap;
     private byte[] contactsPhotoBytes;

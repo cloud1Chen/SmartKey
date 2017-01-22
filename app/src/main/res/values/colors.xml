@@ -7,4 +7,31 @@
     <color name="spaceDismissColor">#b4868181</color>
 
     <color name="colorToolBarTitleText">#FFFFFF</color>
+    <color name="tv_choose_function_name_textcolor">#505050</color>
+    <color name="settings_item2_layout_height_title_textcolor">#505050</color>
+    <color name="settings_item2_layout_height_subtitle_textcolor">#AAAAAA</color>
+
+    <color name="setup_url_cancel_text_color">#505050</color>
+    <color name="setup_url_ok_text_color">#f33111</color>
+
+    <color name="transparent">#9000</color>
+
+    <color name="red_226">#E25E5E</color>
+    <color name="error_color">#FF4081</color>
+    <color name="red">#FF5C26</color>
+    <color name="orange">#FEA466</color>
+    <color name="green">#66BB00</color>
+    <color name="blue">#0080FF</color>
+    <color name="font_text">#666</color>
+    <color name="color_999">#999</color>
+    <color name="color_eee">#eee</color>
+    <color name="font_info">#999</color>
+    <color name="font_tips">#CCC</color>
+    <color name="divider">#EEE</color>
+    <color name="border_block">#EAEAEA</color>
+    <color name="textcolor">#63B8FF</color>
+    <color name="color_ccc">#CCC</color>
+    <color name="black">#B7B7B7</color>
+    <color name="white">#fff</color>
+
 </resources>

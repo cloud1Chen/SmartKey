@@ -21,15 +21,19 @@ import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
+import com.gjiazhe.wavesidebar.WaveSideBar;
 import com.itel.smartkey.R;
 import com.itel.smartkey.adapter.SelectCantactsAdapter;
 import com.itel.smartkey.adapter.SelectContactsNumberAdapter;
 import com.itel.smartkey.base.BaseActivity;
 import com.itel.smartkey.bean.ContactsBean;
+import com.itel.smartkey.sort.PinyinComparator;
 import com.itel.smartkey.utils.ContactsUtils;
+import com.itel.smartkey.utils.PaserNameToLetterUtils;
 import com.itel.smartkey.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SelectContactsActivity extends BaseActivity {
@@ -44,8 +48,14 @@ public class SelectContactsActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private Toolbar toolbar;
     private Context mContext;
-    private ArrayList<ContactsBean> mDatas = new ArrayList<>();
+    private List<ContactsBean> mDatas = new ArrayList<>();
     private SelectCantactsAdapter mAdapter;
+    LinearLayoutManager layoutManager;
+    private WaveSideBar waveSideBar;
+
+    private PinyinComparator pinyinComparator;
+
+
 
     //popupWindow相关
     private PopupWindow mPopupWindow;
@@ -58,13 +68,20 @@ public class SelectContactsActivity extends BaseActivity {
 
     @Override
     protected int getResultId() {
-        return R.layout.activity_select;
+        return R.layout.activity_select_contacts;
     }
 
     @Override
     protected void initView() {
+
+
         mContext = this;
         rootView = findViewById(R.id.activity_select);
+
+
+        initWaveSlideBar();
+
+        pinyinComparator = new PinyinComparator();
 
         intent = getIntent();
         isSetSOSInfo = intent.getBooleanExtra("isFromSetupSOS", false);
@@ -78,11 +95,12 @@ public class SelectContactsActivity extends BaseActivity {
 
         //toobar初始化
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        initToolbar(toolbar, R.mipmap.pic_back_bar_black, "选择联系人", false, "505050", "f3f4f5");
+        initToolbar(toolbar, R.mipmap.pic_back_bar_black, "选择联系人", false, "505050", "f4f4f4");
 
         //recycleview相关的初始化
         recyclerView = (RecyclerView) findViewById(R.id.recycleview_selectPhone);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));//设置垂直方向的线性布局
+        layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);//设置垂直方向的线性布局
         recyclerView.addItemDecoration(new SelectContactsItemDecoration(mContext, SelectContactsItemDecoration.VERTICAL_LIST));//设置item的下划线
         mAdapter = new SelectCantactsAdapter(mContext, mDatas);
         mAdapter.setOnItemClickListener(new SelectCantactsAdapter.onItemClickListener() {//设置item的点击事件
@@ -136,6 +154,24 @@ public class SelectContactsActivity extends BaseActivity {
 //        itemTouchHelper.attachToRecyclerView(recyclerView);
         //初始化PopupWindow
         initPopupWindow();
+    }
+
+    private void initWaveSlideBar() {
+        waveSideBar = (WaveSideBar) findViewById(R.id.wave_side_bar);
+        waveSideBar.setOnSelectIndexItemListener(new WaveSideBar.OnSelectIndexItemListener() {
+            @Override
+            public void onSelectIndexItem(String index) {
+                Log.d("LHRTAG", "index" + index);
+                int selectPosition = 0;
+                for (int i=0; i < mDatas.size(); i++){
+                    if (mDatas.get(i).getSortLetter().equals(index)){
+                        selectPosition = i;
+                        break;
+                    }
+                }
+                scrollPosition(selectPosition);
+            }
+        });
     }
 
     //初始化PopupWindow
@@ -193,6 +229,13 @@ public class SelectContactsActivity extends BaseActivity {
     @Override
     protected void initData() {
         ContactsUtils.getContacts(mContext, mDatas);
+
+        mDatas = (List<ContactsBean>) PaserNameToLetterUtils.filledData(mDatas);
+        Collections.sort(mDatas, pinyinComparator);
+
+        //获取联系人的开头字母（排序字母），并且设置给waveSlideBar
+        initWaveSlideBarData();
+
         for (int i=0; i<mDatas.size(); i++){
             Log.d("LHRTAG", "name "+mDatas.get(i).getName());
             ArrayList<String> mPhones = mDatas.get(i).getPhones();
@@ -202,6 +245,32 @@ public class SelectContactsActivity extends BaseActivity {
         }
         mAdapter.setDatas(mDatas);
         Log.d("LHRTAG", "mDatas.size()" + mDatas.size()  );
+    }
+
+    private void initWaveSlideBarData() {
+        List<String> mLetters = new ArrayList<>();
+        for (int i = 0; i < mDatas.size(); i++){
+            String temLetter = mDatas.get(i).getSortLetter();
+            if (!mLetters.contains(temLetter)){
+                mLetters.add(temLetter);
+            }
+        }
+        String[] b = mLetters.toArray(new String[mLetters.size()]);
+        waveSideBar.setIndexItems(b);
+    }
+
+
+    private void scrollPosition(int index) {
+        int firstPosition = layoutManager.findFirstVisibleItemPosition();
+        int lastPosition = layoutManager.findLastVisibleItemPosition();
+        if (index <= firstPosition) {
+            recyclerView.scrollToPosition(index);
+        } else if (index <= lastPosition) {
+            int top = recyclerView.getChildAt(index - firstPosition).getTop();
+            recyclerView.scrollBy(0, top);
+        } else {
+            recyclerView.scrollToPosition(index);
+        }
     }
 
 

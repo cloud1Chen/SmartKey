@@ -20,12 +20,12 @@ import java.util.List;
  * Created by huorong.liang on 2017/1/6.
  */
 
-public class SelectCantactsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
+public class FunctionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
     Context mContext;
     List<ContactsBean> mList;
     onItemClickListener mOnItemClickListener;
 
-    public void setOnItemClickListener(SelectCantactsAdapter.onItemClickListener mOnItemClickListener) {
+    public void setOnItemClickListener(FunctionListAdapter.onItemClickListener mOnItemClickListener) {
         this.mOnItemClickListener = mOnItemClickListener;
     }
 
@@ -55,7 +55,7 @@ public class SelectCantactsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         void onItemLongClick(View view, int position);
     }
 
-    public SelectCantactsAdapter(Context mContext, List<ContactsBean> mList) {
+    public FunctionListAdapter(Context mContext, List<ContactsBean> mList) {
         this.mList = mList;
         this.mContext = mContext;
     }

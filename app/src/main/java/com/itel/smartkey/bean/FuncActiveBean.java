@@ -11,31 +11,31 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class FuncActiveBean {
     @Id
-    private Long funcAcId;
+    private Long funcAcId;//主键
     @Property
-    private String funcAcName;
+    private String funcAcName;//功能名称
     @Property
-    private int funcAcNameId;
+    private int funcAcNameId;//功能名称id
     @Property
-    private int funcAcIconId;
+    private int funcAcIconId;//功能id
     @Property
-    private String funcAcIconPath;
+    private String funcAcIconPath;//功能图标的路径
     @Property
-    private String data1;
+    private String data1;//url
     @Property
-    private String data2;
+    private String data2;//packagename
     @Property
-    private String data3;
+    private String data3;//activityclass
     @Property
-    private String data4;
+    private String data4;//phonenumber
     @Property
-    private String data5;
+    private String data5;//extra
     @Property
-    private String data6;
+    private String data6;//extra
     @Property
-    private String data7;
+    private String data7;//extra
     @Property
-    private Long funcId;
+    private Long funcId;//对应表1的主键（事件TAG）
     @Generated(hash = 1804003016)
     public FuncActiveBean(Long funcAcId, String funcAcName, int funcAcNameId,
             int funcAcIconId, String funcAcIconPath, String data1, String data2,

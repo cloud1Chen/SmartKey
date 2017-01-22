@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content"/>
             <Button
                 android:id="@+id/bt_addnow"
+                android:background="@mipmap/pic_btn_addnow"
                 android:layout_marginTop="46dp"
                 android:text="@string/add_now"
                 android:singleLine="true"

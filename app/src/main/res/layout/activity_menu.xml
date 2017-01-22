@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:clipToPadding="true"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical"
+              tools:context="com.itel.smartkey.ui.settings.MenuActivity">
+
+    <include
+        layout="@layout/toolbar_layout"/>
+
+
+    <!-- 阴影 -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/bar_shadow"/>
+
+    <TextView
+        android:text="@string/adjust_2click_speed"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:textColor="#505050"
+        android:textSize="16sp"
+        android:layout_marginStart="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <so.orion.slidebar.GBSlideBar
+        android:id="@+id/gbslidebar"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        app:gbs_anchor_height="25dp"
+        app:gbs_anchor_width="25dp"
+        app:gbs_background="#e0e0e0"
+        app:gbs_paddingBottom="65dp"
+        app:gbs_placeholder_width="10dp"
+        app:gbs_placeholder_height="10dp"
+        app:gbs_paddingLeft="10dp"
+        app:gbs_paddingRight="10dp"
+        app:gbs_paddingTop="25dp"
+        app:gbs_textSize="12sp"
+        app:gbs_textColor="#AAAAAA" />
+    
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- 震动反馈 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item2_layout_height"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_settings_item2_title_feedback"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:maxWidth="220dp"
+                        android:singleLine="true"
+                        android:text="@string/vibration_feedback"
+                        android:textColor="@color/settings_item2_layout_height_title_textcolor"
+                        android:textSize="@dimen/settings_item2_layout_height_title_text_size"/>
+
+                    <TextView
+                        android:id="@+id/tv_settings_item2_subtitle_feedback"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="marquee"
+                        android:maxWidth="220dp"
+                        android:singleLine="true"
+                        android:text="@string/vibration_feedback_subtitle"
+                        android:textColor="@color/settings_item2_layout_height_subtitle_textcolor"
+                        android:textSize="@dimen/settings_item2_layout_height_subtitle_text_size"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <ch.ielse.view.SwitchView
+                    android:id="@+id/switch_vibration"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    app:hasShadow="true"
+                    app:primaryColor="#e44420"
+                    app:primaryColorDark="#acaaaa"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#c9c6c6"/>
+
+            <!-- 锁屏黑屏状态下可用 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item2_layout_height"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_settings_item2_title_lockandblack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:maxWidth="220dp"
+                        android:singleLine="true"
+                        android:text="@string/vibration_feedback"
+                        android:textColor="@color/settings_item2_layout_height_title_textcolor"
+                        android:textSize="@dimen/settings_item2_layout_height_title_text_size"/>
+
+                    <TextView
+                        android:id="@+id/tv_settings_item2_subtitle_lockandblack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="marquee"
+                        android:maxWidth="220dp"
+                        android:singleLine="true"
+                        android:text="@string/vibration_feedback_subtitle"
+                        android:textColor="@color/settings_item2_layout_height_subtitle_textcolor"
+                        android:textSize="@dimen/settings_item2_layout_height_subtitle_text_size"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <ch.ielse.view.SwitchView
+                    android:id="@+id/switch_canuse_in_black"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    app:hasShadow="true"
+                    app:primaryColor="#e44420"
+                    app:primaryColorDark="#acaaaa"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#c9c6c6"/>
+
+            <!-- 单击键开关 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item2_layout_height"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_settings_item2_title_clickcanuse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:maxWidth="220dp"
+                        android:singleLine="true"
+                        android:text="@string/one_click_switch"
+                        android:textColor="@color/settings_item2_layout_height_title_textcolor"
+                        android:textSize="@dimen/settings_item2_layout_height_title_text_size"/>
+
+                    <TextView
+                        android:id="@+id/tv_settings_item2_subtitle_clickcanuse_clickcanuse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="marquee"
+                        android:maxWidth="220dp"
+                        android:singleLine="true"
+                        android:text="@string/one_click_switch_subtitle"
+                        android:textColor="@color/settings_item2_layout_height_subtitle_textcolor"
+                        android:textSize="@dimen/settings_item2_layout_height_subtitle_text_size"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <ch.ielse.view.SwitchView
+                    android:id="@+id/switch_click"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    app:hasShadow="true"
+                    app:primaryColor="#e44420"
+                    app:primaryColorDark="#acaaaa"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#c9c6c6"/>
+
+            <!-- 相机 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item2_layout_height"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_settings_item2_title_camera_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:maxWidth="220dp"
+                        android:singleLine="true"
+                        android:text="@string/camera_switch"
+                        android:textColor="@color/settings_item2_layout_height_title_textcolor"
+                        android:textSize="@dimen/settings_item2_layout_height_title_text_size"/>
+
+                    <TextView
+                        android:id="@+id/tv_settings_item2_subtitle_camera_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:maxWidth="220dp"
+                        android:text="@string/camera_switch_subtitle"
+                        android:textColor="@color/settings_item2_layout_height_subtitle_textcolor"
+                        android:textSize="@dimen/settings_item2_layout_height_subtitle_text_size"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <ch.ielse.view.SwitchView
+                    android:id="@+id/switch_camera"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    app:hasShadow="true"
+                    app:primaryColor="#e44420"
+                    app:primaryColorDark="#acaaaa"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#c9c6c6"/>
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

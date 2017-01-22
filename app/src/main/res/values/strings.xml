@@ -17,4 +17,38 @@
     <string name="share_pic_to_facebook">CAM to Facebook</string>
     <string name="sos">SOS</string>
 
+    <string name="no_add_any_function">No shortcut added.</string>
+    <string name="add_now">Add Now</string>
+
+    <!-- 主界面文案 -->
+    <string name="smartkey">Smart Key</string>
+    <string name="set_functions">Set functions of the button on the back</string>
+    <string name="click">Set 1-click</string>
+    <string name="double_click">Set 2-click</string>
+    <string name="long_click">Set long-press</string>
+    <string name="toolbar_title_choose_function">Shortcut Menu</string>
+
+    <!-- 设置文案 -->
+    <string name="smart_key_settings">Smart Key Settings</string>
+    <string name="adjust_2click_speed">Adjust 2-click speed</string>
+    <string name="slow">Slow</string>
+    <string name="normal">Normal</string>
+    <string name="fast">Fast</string>
+    <string name="vibration_feedback">Vibration Feedback</string>
+    <string name="vibration_feedback_subtitle">Vibrate when press Smart Key</string>
+    <string name="one_click_switch">Smart Key switch for 1-click</string>
+    <string name="one_click_switch_subtitle">Enable or disable 1-click Smart Key</string>
+    <string name="camera_switch">Smart Key as a shutter</string>
+    <string name="camera_switch_subtitle">Use Smart Key as a shutter in camera app.</string>
+
+    <!-- 设置网址文案 -->
+    <string name="enter_an_url">Enter an URL</string>
+    <string name="setup_url_cancel">Cancel</string>
+    <string name="setup_url_ok">OK</string>
+
+
+
+    <string name="toolbar_title_text_color_choose_function">505050</string>
+    <string name="toolbar_background_color_choose_function">F3F4F5</string>
+
 </resources>
