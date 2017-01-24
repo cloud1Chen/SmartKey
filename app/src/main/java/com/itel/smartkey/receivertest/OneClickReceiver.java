@@ -38,7 +38,7 @@ public class OneClickReceiver extends BroadcastReceiver {
         if (intent.getAction().equals(SentBroadcastActivity.ACTION_SMARTKEY_SINGLE_CLICK)){
             Log.d("LHRTAG", "你接收到了单击发出的广播");
             Intent intent1 = new Intent();
-            intent1.setAction("com.itel.smartkey.action.TestActivity");
+            intent1.setAction("com.itel.smartkey.action.DialogMenuActivity");
             intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent1.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             context.startActivity(intent1);

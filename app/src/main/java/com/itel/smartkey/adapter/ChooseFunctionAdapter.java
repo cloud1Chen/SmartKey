@@ -2,6 +2,7 @@ package com.itel.smartkey.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.itel.smartkey.R;
-import com.itel.smartkey.bean.FuncBean;
+import com.itel.smartkey.bean.Function;
 import com.itel.smartkey.listener.ItemTouchHelperAdapter;
+import com.itel.smartkey.utils.Utils;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +25,8 @@ import java.util.List;
 
 public class ChooseFunctionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
     Context mContext;
-    List<FuncBean> mList;
+//    List<FuncBean> mList;
+    List<Function> mList;
     OnItemClickListener mOnItemClickListener;
 
     public void setOnItemClickListener(ChooseFunctionAdapter.OnItemClickListener mOnItemClickListener) {
@@ -56,23 +59,23 @@ public class ChooseFunctionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         void onItemLongClick(View view, int position);
     }
 
-    public ChooseFunctionAdapter(Context mContext, List<FuncBean> mList) {
+    public ChooseFunctionAdapter(Context mContext, List<Function> mList) {
         this.mList = mList;
         this.mContext = mContext;
     }
 
-    public void setDatas(List<FuncBean> mList){
+    public void setDatas(List<Function> mList){
         this.mList = mList;
         this.notifyDataSetChanged();
     }
 
-    public void addDatas(List<FuncBean> mList){
+    public void addDatas(List<Function> mList){
         this.mList.addAll(mList);
         this.notifyDataSetChanged();
     }
 
     //添加一项
-    public void addItem(int position, FuncBean bean){
+    public void addItem(int position, Function bean){
         mList.add(position, bean);
         notifyItemInserted(position);
     }
@@ -93,8 +96,11 @@ public class ChooseFunctionAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         final ChooseFunctionViewHolder viewHolder = (ChooseFunctionViewHolder) holder;
 //        Log.d("LHRTAG", mList.get(position).getFuncName());
-        viewHolder.tv_choose_function_name.setText(mList.get(position).getFuncName());
-        Glide.with(mContext).load(mList.get(position).getIconId()).into(viewHolder.iv_choose_function_icon);
+        viewHolder.tv_choose_function_name.setText(Utils.getStringById(mContext, mList.get(position).getName()));
+        int iconId = Utils.getDrawableIdByString(mContext, mList.get(position).getIcon());
+        Log.d("LHRTAG", "iconId " + iconId);
+//        Drawable iconDraw = Utils.getDrawableById(mContext, mList.get(position).getIcon());
+        Glide.with(mContext).load(iconId).into(viewHolder.iv_choose_function_icon);
 
         //item的点击事件
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

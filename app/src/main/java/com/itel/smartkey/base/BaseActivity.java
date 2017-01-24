@@ -1,5 +1,6 @@
 package com.itel.smartkey.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.itel.smartkey.R;
@@ -102,6 +105,49 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         });
     };
+
+    /**
+     * 开始主界面和工具箱界面的背景动画
+     * @param mContext
+     * @param view
+     */
+    protected void startBackgroundAnimtion(Context mContext, final View view) {
+
+        final Animation anim_back_scale_1 = AnimationUtils.loadAnimation(mContext, R.anim.anim_main_background_scale_1);
+        view.startAnimation(anim_back_scale_1);
+        final Animation anim_back_scale_2 = AnimationUtils.loadAnimation(mContext, R.anim.anim_main_background_scale_2);
+        anim_back_scale_2.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.startAnimation(anim_back_scale_1);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        anim_back_scale_1.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                view.startAnimation(anim_back_scale_2);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+    }
 
     public <T extends View> T findViewByIds(int id){
         View mView = this.findViewById(id);

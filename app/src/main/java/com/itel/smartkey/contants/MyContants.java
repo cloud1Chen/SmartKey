@@ -6,7 +6,7 @@ package com.itel.smartkey.contants;
 
 public class MyContants {
     //Function为null，即不具有功能
-    public static final Long NOT_FUNCTION = 10000L;
+    public static final int NOT_FUNCTION = -1;
 
     //设置界面的键值对KEY
     public static final String KEY_IS_VIBRATE_OPENED  = "isVibrateOpened";

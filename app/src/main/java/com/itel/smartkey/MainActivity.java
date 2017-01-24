@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.itel.smartkey.base.BaseActivity;
 import com.itel.smartkey.ui.toolbox.FrontToolBoxActivity;
@@ -19,6 +22,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private RelativeLayout relativelayout_double_click;
     private RelativeLayout relativelayout_long_click;
 
+    //需要执行动画的控件
+    private ImageView ivBackground;
+    private TextView tv_main_smartkey;
+    private TextView tv_main_smartkey_subscribe;
+    private ImageView iv_main_phone;
+    private LinearLayout ll_main_button_group;
+
     @Override
     protected int getResultId() {
         return R.layout.activity_main;
@@ -27,13 +37,37 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initView() {
         mContext = this;
+        //初始化动画相关的控件
+        ivBackground = (ImageView) findViewById(R.id.background);
+        tv_main_smartkey = (TextView) findViewById(R.id.tv_main_smartkey);
+        tv_main_smartkey_subscribe = (TextView) findViewById(R.id.tv_main_smartkey_subscribe);
+        iv_main_phone = (ImageView) findViewById(R.id.iv_main_phone);
+        ll_main_button_group = (LinearLayout) findViewById(R.id.ll_main_button_group);
+
+
+//        Animation animTvSmartKey = AnimationUtils.loadAnimation(mContext, R.anim.anim_main_tv_smartkey);
+//        tv_main_smartkey.startAnimation(animTvSmartKey);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        startBackgroundAnimtion(mContext, ivBackground);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         initToolbar(toolbar, "", true);
         relativelayout_click = (RelativeLayout) findViewById(R.id.relativelayout_click);
         relativelayout_double_click = (RelativeLayout) findViewById(R.id.relativelayout_double_click);
         relativelayout_long_click = (RelativeLayout) findViewById(R.id.relativelayout_long_click);
-
     }
 
     @Override

@@ -13,7 +13,7 @@
     <dimen name="settings_item2_layout_height_subtitle_text_size">12sp</dimen>
     <dimen name="setup_url_cancel_ok_textsize">16sp</dimen>
 
-    <dimen name="top">40dp</dimen>
+    <!--<dimen name="top">40dp</dimen>-->
 
 
 

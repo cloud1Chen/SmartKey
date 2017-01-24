@@ -2,15 +2,105 @@ package com.itel.smartkey.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by huorong.liang on 2017/1/9.
  */
 
 public class Utils {
+
+    /**
+     * 根据string字符串获取在资源中的id
+     * @param mContext
+     * @param stringName
+     * @return
+     */
+    public static int getStringIdByString(Context mContext, String stringName){
+        int stringID = mContext.getResources().getIdentifier(stringName,// string.xml内配置的名字
+                "string",
+                "com.itel.smartkey");
+        Log.d("LHRTAG", "stringID " + stringID);
+        return stringID;
+    }
+
+    /**
+     * 根据id获取资源中的字符串
+     * @param mContext
+     * @param stringName
+     * @return
+     */
+    public static String getStringById(Context mContext, String stringName){
+        String string;
+        return string = mContext.getResources().getString(getStringIdByString(mContext, stringName));
+    }
+
+
+    /**
+     * 根据drawable 的name获取在资源中的id
+     * @param mContext
+     * @param drawableName
+     * @return
+     */
+    public static int getDrawableIdByString(Context mContext, String drawableName){
+        int stringID = mContext.getResources().getIdentifier(drawableName,// string.xml内配置的名字
+                "mipmap",
+                "com.itel.smartkey");
+        return stringID;
+    }
+
+    /**
+     * 根据drawable 的id获取在资源中的图片
+     * @param mContext
+     * @param drawableName
+     * @return
+     */
+    public static Drawable getDrawableById(Context mContext, String drawableName){
+        Drawable image = mContext.getResources().getDrawable(getDrawableIdByString(mContext, drawableName));
+        return image;
+    }
+
+    /**
+     * drawable转换为bitmap
+     * @param drawable
+     * @return
+     */
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+        Bitmap bitmap = Bitmap.createBitmap(
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
+    /**
+     * bitmap转换为bytes
+     * @param bitmap
+     * @return
+     */
+    public static byte[] getBytes(Bitmap bitmap){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
+    }
+
+
+
+
+
+
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */

@@ -121,7 +121,8 @@ public class ChooseAppsActivity extends BaseActivity{
         mDatas = AppsUtils.loadApps(mContext);
         mDatas = (List<AppsBean>) PaserNameToLetterUtils.filledData(mDatas);
         Collections.sort(mDatas, pinyinComparator);
-        appsAdapter.notifyDataSetChanged();
+        Log.d("LHRTAG","mDatas.size()" + mDatas.size());
+        appsAdapter.upDates(mDatas);
         initWaveSlideBarData();
     }
 

@@ -12,12 +12,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.itel.smartkey.R;
-import com.itel.smartkey.bean.FuncActiveBean;
+import com.itel.smartkey.bean.Settings;
 import com.itel.smartkey.contants.MyContants;
 import com.itel.smartkey.listener.ItemTouchHelperAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * 工具箱里的recycleview的adapter，支持长按拖拽
@@ -27,7 +28,7 @@ import java.util.Collections;
 public class FrontToolboxFuncAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
 
     private Context mContext;
-    private ArrayList<FuncActiveBean> mDatas;
+    private List<Settings> mDatas;
     private static final int VIEW_TYPE_ISFUNCTION = 1;
     private static final int VIEW_TYPE_NOTFUNCTION = 2;
     private OnItemClickListener onItemClickListener;
@@ -37,12 +38,18 @@ public class FrontToolboxFuncAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.onItemClickListener = onItemClickListener;
     }
 
-    public FrontToolboxFuncAdapter(Context mContext, ArrayList<FuncActiveBean> mDatas) {
+    public FrontToolboxFuncAdapter(Context mContext, List<Settings> mDatas) {
         this.mContext = mContext;
         this.mDatas = mDatas;
     }
 
-    public void addDatas(ArrayList<FuncActiveBean> mDatas){
+    public void addDatas(ArrayList<Settings> mDatas){
+        this.mDatas.addAll(mDatas);
+        this.notifyDataSetChanged();
+    }
+
+    public void updateDatas(ArrayList<Settings> mDatas){
+        this.mDatas.clear();
         this.mDatas.addAll(mDatas);
         this.notifyDataSetChanged();
     }
@@ -94,7 +101,7 @@ public class FrontToolboxFuncAdapter extends RecyclerView.Adapter<RecyclerView.V
                     int truePosition = holder.getLayoutPosition();
                     mDatas.remove(truePosition);
 //                    notifyItemRemoved(truePosition);
-                    FuncActiveBean bean = new FuncActiveBean();
+                    Settings bean = new Settings();
                     bean.setFuncId(MyContants.NOT_FUNCTION);
                     mDatas.add(bean);
                     if (truePosition != mDatas.size()) {

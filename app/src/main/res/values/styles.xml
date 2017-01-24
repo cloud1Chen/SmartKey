@@ -9,7 +9,7 @@
         <!-- recycleview的item的下划线-->
         <item name="android:listDivider">@drawable/select_contatcs_divider</item>
     </style>
-    Theme.AppCompat.Light.NoActionBar
+
     <!-- popupWindow的弹出和关闭的动画 -->
     <style name="mypopwindow_anim_style">
         <item name="android:windowEnterAnimation">@anim/popwindow_bottom_to_top_in</item>
@@ -23,13 +23,13 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <!--activity的弹框风格-->
+    <!--弹框风格的activity样式-->
     <style name="dialogstyle" parent="Theme.AppCompat.Dialog">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-
+    <!--半透明悬浮于activity之上的activity样式-->
     <style  name="translucent" parent="Theme.AppCompat.Light.NoActionBar">
         <!--<item name="android:windowFrame">@null</item>&lt;!&ndash; 边框 &ndash;&gt;-->
         <item name="android:windowIsFloating">true</item><!-- 是否悬浮在activity上 -->
@@ -41,6 +41,7 @@
         <!--<item name="android:windowContentOverlay">@null</item>&lt;!&ndash; 窗口是否有遮盖 &ndash;&gt;-->
         <!--<item name="android:colorBackgroundCacheHint">@null</item>&lt;!&ndash; 背景缓存颜色 &ndash;&gt;-->
     </style>
+
     <!-- toolbar title text size -->
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">18sp</item>

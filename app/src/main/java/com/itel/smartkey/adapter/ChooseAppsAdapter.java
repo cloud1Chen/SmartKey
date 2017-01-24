@@ -67,6 +67,12 @@ public class ChooseAppsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.notifyDataSetChanged();
     }
 
+    public void upDates(List<AppsBean> mList){
+        this.mList.clear();
+        this.mList.addAll(mList);
+        this.notifyDataSetChanged();
+    }
+
     public void addDatas(List<AppsBean> mList){
         this.mList.addAll(mList);
         this.notifyDataSetChanged();

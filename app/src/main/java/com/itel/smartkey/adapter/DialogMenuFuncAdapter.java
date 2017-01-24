@@ -12,12 +12,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.itel.smartkey.R;
-import com.itel.smartkey.bean.FuncActiveBean;
+import com.itel.smartkey.bean.Settings;
 import com.itel.smartkey.contants.MyContants;
 import com.itel.smartkey.listener.ItemTouchHelperAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * 弹出菜单的recycleview的adapter，支持长按拖拽，但我们这里不需要，因此不启用。
@@ -27,7 +28,7 @@ import java.util.Collections;
 public class DialogMenuFuncAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
 
     private Context mContext;
-    private ArrayList<FuncActiveBean> mDatas;
+    private List<Settings> mDatas;
     private static final int VIEW_TYPE_ISFUNCTION = 1;
     private static final int VIEW_TYPE_NOTFUNCTION = 2;
     private OnItemClickListener onItemClickListener;
@@ -37,12 +38,12 @@ public class DialogMenuFuncAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         this.onItemClickListener = onItemClickListener;
     }
 
-    public DialogMenuFuncAdapter(Context mContext, ArrayList<FuncActiveBean> mDatas) {
+    public DialogMenuFuncAdapter(Context mContext, List<Settings> mDatas) {
         this.mContext = mContext;
         this.mDatas = mDatas;
     }
 
-    public void addDatas(ArrayList<FuncActiveBean> mDatas){
+    public void addDatas(ArrayList<Settings> mDatas){
         this.mDatas.addAll(mDatas);
         this.notifyDataSetChanged();
     }

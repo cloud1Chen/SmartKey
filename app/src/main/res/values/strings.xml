@@ -46,8 +46,7 @@
     <string name="setup_url_cancel">Cancel</string>
     <string name="setup_url_ok">OK</string>
 
-
-
+    <!-- toolbar颜色 -->
     <string name="toolbar_title_text_color_choose_function">505050</string>
     <string name="toolbar_background_color_choose_function">F3F4F5</string>
 
