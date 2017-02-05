@@ -24,6 +24,7 @@ import com.itel.smartkey.contants.SmartKeyAction;
 import com.itel.smartkey.service.DBService;
 import com.itel.smartkey.utils.Execute;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +38,7 @@ public class DialogMenuActivity extends AppCompatActivity implements View.OnClic
 
     private RecyclerView mRecyclerView;
     private DialogMenuFuncAdapter menuFuncAdapter;
-    private List<Settings> mRvDatas;
+    private List<Settings> mRvDatas = new ArrayList<>();
 
     private Button bt_addnow;
 
@@ -102,12 +103,14 @@ public class DialogMenuActivity extends AppCompatActivity implements View.OnClic
                 Log.d("LHRTAG", "点击了 " + position + "项");
                 Settings settingsBean = mRvDatas.get(position);
                 int funcAcId = settingsBean.getFuncAcId();
-                Log.d("LHRTAG", "点击了 " + position + "项" + "funcAcId为 " + funcAcId);
-                if (funcAcId == MyContants.NOT_FUNCTION){
+                int funcId = settingsBean.getFuncId();
+                Log.d("LHRTAG", "点击了 " + position + "项" + "funcAcId为 " + funcAcId + "funcId为 " + funcId);
+                if (funcId == MyContants.NOT_FUNCTION){
                     Toast.makeText(mContext, "还没有设置功能，请设置噢", Toast.LENGTH_SHORT).show();
+                }else{
+                    Execute.run(mContext, funcAcId, -1, null);
+                    DialogMenuActivity.this.finish();
                 }
-                Execute.run(mContext, funcAcId, -1, null);
-                DialogMenuActivity.this.finish();
             }
         });
     }
@@ -116,8 +119,15 @@ public class DialogMenuActivity extends AppCompatActivity implements View.OnClic
      * 读取数据库表2中的数据，保存到mDatas中
      */
     private void initDatas() {
-        mRvDatas = mDBService.findAllSettings();
+        //add for fix load icon lhr 2017/2/4 {
+        List<Settings> mFindedRvDatas = mDBService.findAllSettings();
+        mRvDatas.clear();
+        for (int i=0; i<mFindedRvDatas.size()-2; i++){
+            mRvDatas.add(mFindedRvDatas.get(i));
+            Log.d("LHRTAG", "DialogMenuActivity mRvDatas.funcAcId " + mRvDatas.get(i).getFuncId());
+        }
         Log.d("LHRTAG", "Dialog mRvDatas size " + mRvDatas.size());
+        //fix end }
     }
 
     @Override

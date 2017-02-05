@@ -1,6 +1,8 @@
 package com.itel.smartkey.ui.function;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,8 +14,10 @@ import com.itel.smartkey.R;
 import com.itel.smartkey.adapter.ChooseAppsAdapter;
 import com.itel.smartkey.base.BaseActivity;
 import com.itel.smartkey.bean.AppsBean;
+import com.itel.smartkey.bean.Settings;
 import com.itel.smartkey.sort.PinyinComparator;
 import com.itel.smartkey.ui.phone.SelectContactsItemDecoration;
+import com.itel.smartkey.ui.toolbox.FrontToolBoxActivity;
 import com.itel.smartkey.utils.AppsUtils;
 import com.itel.smartkey.utils.PaserNameToLetterUtils;
 
@@ -91,10 +95,29 @@ public class ChooseAppsActivity extends BaseActivity{
 
         appsAdapter = new ChooseAppsAdapter(mContext, mDatas);
 
-        appsAdapter.setOnItemClickListener(new ChooseAppsAdapter.OnItemClickListener() {//设置item的点击事件
+        appsAdapter.setOnItemClickListener(new ChooseAppsAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-
+            public void onItemClick(View view, int position) {//设置item的点击事件,AppsBean，并返回给ChooseFunctionActiity
+                Intent mRQIntent = getIntent();
+                AppsBean appsBean = mDatas.get(position);
+                Settings settingsBean = (Settings) mRQIntent.getSerializableExtra(FrontToolBoxActivity.SETTINGS_BEAN);
+                String packageName = appsBean.getPackageName();
+                String activityClassName = appsBean.getClassName();
+                String appsName = appsBean.getName();
+                byte[] iconBytes = appsBean.getIconBytes();
+                Log.d("LHRTAG", "ChooseAppsActivity appsName " + appsName);
+                Log.d("LHRTAG", "ChooseAppsActivity packageName " + packageName);
+                Log.d("LHRTAG", "ChooseAppsActivity activityClassName " + activityClassName);
+                Log.d("LHRTAG", "ChooseAppsActivity iconBytes " + iconBytes);
+                settingsBean.setData2(packageName);
+                settingsBean.setData3(activityClassName);
+                settingsBean.setFuncAcIconBytes(iconBytes);
+                settingsBean.setFuncAcName(appsName);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(FrontToolBoxActivity.SETTINGS_BEAN, settingsBean);
+                mRQIntent.putExtras(bundle);
+                setResult(RESULT_OK, mRQIntent);
+                finish();
             }
 
             @Override
@@ -118,11 +141,14 @@ public class ChooseAppsActivity extends BaseActivity{
      * 更新数据源
      */
     private void initRvDatasAndSlideBarItems() {
-        mDatas = AppsUtils.loadApps(mContext);
+        List<AppsBean> mAppsBeanList = AppsUtils.loadApps(mContext);
+        mDatas.clear();
+        mDatas.addAll(mAppsBeanList);
         mDatas = (List<AppsBean>) PaserNameToLetterUtils.filledData(mDatas);
         Collections.sort(mDatas, pinyinComparator);
         Log.d("LHRTAG","mDatas.size()" + mDatas.size());
-        appsAdapter.upDates(mDatas);
+//        appsAdapter.upDates(mDatas);
+        appsAdapter.notifyDataSetChanged();
         initWaveSlideBarData();
     }
 

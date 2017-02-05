@@ -21,9 +21,9 @@
             android:src="@mipmap/pic_bg"/>
 
         <LinearLayout
-            android:layout_marginTop="28dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="28dp"
             android:orientation="vertical">
 
             <include
@@ -78,178 +78,184 @@
                     android:scaleType="fitCenter"
                     android:src="@mipmap/pic_main_phone"/>
 
-                <!-- 分割线 -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_above="@+id/ll_main_button_group"
-                    android:background="#FFFFFF"/>
 
                 <LinearLayout
                     android:id="@+id/ll_main_button_group"
                     android:layout_width="match_parent"
-                    android:layout_height="105dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:orientation="horizontal">
-
-                    <!-- 单击 -->
-                    <RelativeLayout
-                        android:id="@+id/relativelayout_click"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/selector_relativelayout_click"
-                        android:clickable="true"
-                        android:padding="16dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:id="@+id/ib_click"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:scaleType="center"
-                                android:src="@mipmap/pic_single_click"/>
-
-                            <TextView
-                                android:id="@+id/tv_click"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:ellipsize="marquee"
-                                android:gravity="center"
-                                android:singleLine="true"
-                                android:text="@string/click"
-                                android:textColor="#343434"
-                                android:textSize="14sp"/>
-
-                            <TextView
-                                android:id="@+id/tv_click_sub"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:ellipsize="marquee"
-                                android:gravity="center"
-                                android:singleLine="true"
-                                android:text="openCamera"
-                                android:textColor="#8d8d8d"
-                                android:textSize="10sp"/>
-                        </LinearLayout>
-                    </RelativeLayout>
-
+                    android:orientation="vertical">
                     <!-- 分割线 -->
                     <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="#e5e5e5"/>
+                        android:id="@+id/ll_divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#FFFFFF"/>
 
-                    <!-- 双击 -->
-                    <RelativeLayout
-                        android:id="@+id/relativelayout_double_click"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/selector_relativelayout_click"
-                        android:clickable="true"
-                        android:padding="16dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="105dp"
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                        <!-- 单击 -->
+                        <RelativeLayout
+                            android:id="@+id/relativelayout_click"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            android:layout_weight="1"
+                            android:background="@drawable/selector_relativelayout_click"
+                            android:clickable="true"
+                            android:padding="16dp">
 
-                            <ImageView
-                                android:id="@+id/ib_double_click"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:scaleType="center"
-                                android:src="@mipmap/pic_double_click"/>
-
-                            <TextView
-                                android:id="@+id/tv_double_click"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:ellipsize="marquee"
-                                android:gravity="center"
-                                android:singleLine="true"
-                                android:text="@string/double_click"
-                                android:textColor="#343434"
-                                android:textSize="14sp"/>
-
-                            <TextView
-                                android:id="@+id/tv_double_click_sub"
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:ellipsize="marquee"
+                                android:layout_height="match_parent"
                                 android:gravity="center"
-                                android:singleLine="true"
-                                android:text="openCamera"
-                                android:textColor="#8d8d8d"
-                                android:textSize="10sp"/>
-                        </LinearLayout>
-                    </RelativeLayout>
+                                android:orientation="vertical">
 
-                    <!-- 分割线 -->
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="#e5e5e5"/>
+                                <ImageView
+                                    android:id="@+id/ib_click"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:scaleType="center"
+                                    android:src="@mipmap/pic_single_click"/>
 
-                    <!-- 长按 -->
-                    <RelativeLayout
-                        android:id="@+id/relativelayout_long_click"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/selector_relativelayout_click"
-                        android:clickable="true"
-                        android:padding="16dp">
+                                <TextView
+                                    android:id="@+id/tv_click"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:ellipsize="marquee"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:text="@string/click"
+                                    android:textColor="#343434"
+                                    android:textSize="14sp"/>
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
+                                <TextView
+                                    android:id="@+id/tv_click_sub"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="6dp"
+                                    android:ellipsize="marquee"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:text="openCamera"
+                                    android:textColor="#8d8d8d"
+                                    android:textSize="10sp"/>
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <!-- 分割线 -->
+                        <View
+                            android:layout_width="1dp"
                             android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:orientation="vertical">
+                            android:background="#e5e5e5"/>
 
-                            <ImageView
-                                android:id="@+id/ib_long_click"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:scaleType="center"
-                                android:src="@mipmap/pic_long_click"/>
+                        <!-- 双击 -->
+                        <RelativeLayout
+                            android:id="@+id/relativelayout_double_click"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/selector_relativelayout_click"
+                            android:clickable="true"
+                            android:padding="16dp">
 
-                            <TextView
-                                android:id="@+id/tv_long_click"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
-                                android:ellipsize="marquee"
-                                android:gravity="center"
-                                android:singleLine="true"
-                                android:text="@string/long_click"
-                                android:textColor="#343434"
-                                android:textSize="14sp"/>
-
-                            <TextView
-                                android:id="@+id/tv_long_click_sub"
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:ellipsize="marquee"
+                                android:layout_height="match_parent"
                                 android:gravity="center"
-                                android:singleLine="true"
-                                android:text="openCamera"
-                                android:textColor="#8d8d8d"
-                                android:textSize="10sp"/>
-                        </LinearLayout>
-                    </RelativeLayout>
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/ib_double_click"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:scaleType="center"
+                                    android:src="@mipmap/pic_double_click"/>
+
+                                <TextView
+                                    android:id="@+id/tv_double_click"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:ellipsize="marquee"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:text="@string/double_click"
+                                    android:textColor="#343434"
+                                    android:textSize="14sp"/>
+
+                                <TextView
+                                    android:id="@+id/tv_double_click_sub"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="6dp"
+                                    android:ellipsize="marquee"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:text="openCamera"
+                                    android:textColor="#8d8d8d"
+                                    android:textSize="10sp"/>
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <!-- 分割线 -->
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="#e5e5e5"/>
+
+                        <!-- 长按 -->
+                        <RelativeLayout
+                            android:id="@+id/relativelayout_long_click"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/selector_relativelayout_click"
+                            android:clickable="true"
+                            android:padding="16dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/ib_long_click"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:scaleType="center"
+                                    android:src="@mipmap/pic_long_click"/>
+
+                                <TextView
+                                    android:id="@+id/tv_long_click"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:ellipsize="marquee"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:text="@string/long_click"
+                                    android:textColor="#343434"
+                                    android:textSize="14sp"/>
+
+                                <TextView
+                                    android:id="@+id/tv_long_click_sub"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="6dp"
+                                    android:ellipsize="marquee"
+                                    android:gravity="center"
+                                    android:singleLine="true"
+                                    android:text="openCamera"
+                                    android:textColor="#8d8d8d"
+                                    android:textSize="10sp"/>
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>

@@ -16,6 +16,7 @@ import com.itel.smartkey.bean.Settings;
 import com.itel.smartkey.service.BroadcastService;
 import com.itel.smartkey.service.DBService;
 
+import static com.itel.smartkey.utils.Flashlight.isFlashLight;
 
 
 public class Execute {
@@ -70,7 +71,13 @@ public class Execute {
                 return;
         }
         if (Integer.parseInt(settings.getData5()) == Function.METHOD_TYPE_OPEN_FLASHLIGHT) {//根据setingsBean中保存的data5（方法type）来执行对应的方法
-            Flashlight.openOrCloseFlashLight(mContext, true);
+            //add for fix flashlight lhr 2017/2/4 {
+            // Flashlight.openOrCloseFlashLight(mContext, true);
+            boolean isFlashLight = PreferenceUtils.getBoolean(context, "isFlashLight", false);
+            Log.d("LHRTAG", "isFlashLight " + isFlashLight);
+            ManagerFlashlightUtils.openOrCloseFlashLight(context, isFlashLight);
+            PreferenceUtils.putBoolean(context, "isFlashLight", !isFlashLight);
+            //add and }
         } else if (Integer.parseInt(settings.getData5()) == Function.METHOD_TYPE_OPEN_NOTIFICATION) {
             StatusBarUtils.openStatusBar(mContext);
         }
@@ -112,6 +119,7 @@ public class Execute {
             ComponentName componentName = new ComponentName(settings.getData2(), settings.getData3());
             intentOpenExternal.setComponent(componentName);
             intentOpenExternal.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            mContext.startActivity(intentOpenExternal);
         } else if (function.getFunction_app_type() == Function.APP_TYPE_INTERNAL_APP) {//打开本app内置的应用
             if (function.getFunction_type() == Function.FUN_TYPE_OPEN_APP) {
                 Intent it = new Intent();
@@ -120,6 +128,10 @@ public class Execute {
                     Uri uri = Uri.parse(function.getParameter());
                     Log.d("jlog", "uri:" + function.getParameter().length());
                     it.setData(uri);
+                }
+                if (function.getParameter_extra() != null && function.getParameter_extra().length() > 0){
+                    String extra = function.getParameter_extra();
+                    it.putExtra(extra, true);
                 }
 
                 if (function.getFunction() != null && function.getFunction().length() > 0) {

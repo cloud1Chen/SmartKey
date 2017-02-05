@@ -305,6 +305,32 @@ funcAcId funcAcName funcAcNameId funcAcIconId funcAcIconPath funcAcIconBytes dat
         db.close();
         return result;
     }
+    //add for test
+    public int updateSettingsById(Settings set, int id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("funcAcId", set.getFuncAcId());
+        Log.d("LHRTAG", "updateSettingsById funcAcId " + set.getFuncAcId());
+        values.put("funcAcName", set.getFuncAcName());
+        values.put("funcAcNameId", set.getFuncAcNameId());
+        values.put("funcAcIconId", set.getFuncAcIconId());
+        values.put("funcAcIconPath", set.getFuncAcIconPath());
+        values.put("funcAcIconBytes", set.getFuncAcIconBytes());
+        values.put("data1", set.getData1());
+        values.put("data2", set.getData2());
+        values.put("data3", set.getData3());
+        values.put("data4", set.getData4());
+        values.put("data5", set.getData5());
+        values.put("data6", set.getData6());
+        values.put("data7", set.getData7());
+        values.put("funcId", set.getFuncId());
+        // 返回值大于0代表修改更新成功
+        int result = db.update(DBInfo.Table.USER_SET_TB_NAME, values, "_id = ?",
+                new String[] { id + "" });
+        db.close();
+        return result;
+    }
+    //add end
 
     public int updateSettings(Settings set) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();

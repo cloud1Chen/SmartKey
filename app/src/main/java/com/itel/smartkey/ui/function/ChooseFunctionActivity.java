@@ -13,6 +13,7 @@ import com.itel.smartkey.R;
 import com.itel.smartkey.adapter.ChooseFunctionAdapter;
 import com.itel.smartkey.base.BaseActivity;
 import com.itel.smartkey.bean.Function;
+import com.itel.smartkey.bean.Settings;
 import com.itel.smartkey.contants.SmartKeyAction;
 import com.itel.smartkey.service.DBService;
 import com.itel.smartkey.ui.phone.SelectContactsItemDecoration;
@@ -21,8 +22,8 @@ import com.itel.smartkey.ui.toolbox.FrontToolBoxActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.itel.smartkey.ui.toolbox.FrontToolBoxActivity.FUNCTION_BEAN;
 import static com.itel.smartkey.ui.toolbox.FrontToolBoxActivity.ITEM_REAL_POSITION;
+
 
 /**
  * 选择功能列表界面,查询数据库表1中的内容并解析展示，
@@ -99,43 +100,39 @@ public class ChooseFunctionActivity extends BaseActivity {
         functionsAdapter.setOnItemClickListener(new ChooseFunctionAdapter.OnItemClickListener() {//设置item的点击事件
             @Override
             public void onItemClick(View view, int position) {
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+
                 Function functionBean = mDatas.get(position);
                 int funcTionId = functionBean.getId();
+                Settings settingsBean = new Settings();
+                settingsBean.setFuncId(funcTionId);
+                bundle.putSerializable(FrontToolBoxActivity.FUNCTION_BEAN, functionBean);
+                bundle.putSerializable(FrontToolBoxActivity.SETTINGS_BEAN, settingsBean);
+                bundle.putInt(FrontToolBoxActivity.ITEM_REAL_POSITION, itemPosition);
+                bundle.putInt(FrontToolBoxActivity.FUNCTION_FUNCID, funcTionId);
+                intent.putExtras(bundle);
                 Log.d("LHRTAG", "funcTionId " + funcTionId);
                 if (funcTionId == 9){//打开网址
-                    Intent intentOpenUrl = new Intent();
-                    intentOpenUrl.putExtra(ITEM_REAL_POSITION, itemPosition);
-                    intentOpenUrl.setAction(SmartKeyAction.ACTION_OPEN_SETUPURL_ACTIVITY);
-                    startActivityForResult(intentOpenUrl, REQUEST_OPEN_SETURL);
+                    intent.setAction(SmartKeyAction.ACTION_OPEN_SETUPURL_ACTIVITY);
+                    startActivityForResult(intent, REQUEST_OPEN_SETURL);
                 }else if (funcTionId == 10){//打开电话
-                    Intent intentOpenChooseContacts = new Intent();
-                    intentOpenChooseContacts.putExtra(ITEM_REAL_POSITION, itemPosition);
-                    intentOpenChooseContacts.setAction(SmartKeyAction.ACTION_OPEN_CHOOSECONTACTS_ACTIVITY);
-                    startActivityForResult(intentOpenChooseContacts, REQUEST_OPEN_CHOOSECONTACTS);
+                    intent.setAction(SmartKeyAction.ACTION_OPEN_CHOOSECONTACTS_ACTIVITY);
+                    startActivityForResult(intent, REQUEST_OPEN_CHOOSECONTACTS);
                 }else if (funcTionId == 1){//打开apps
-                    Intent intentOpenExtraApps = new Intent();
-                    intentOpenExtraApps.putExtra(ITEM_REAL_POSITION, itemPosition);
-                    intentOpenExtraApps.setAction(SmartKeyAction.ACTION_OPEN_CHOOSEAPPS_ACTIVITY);
-                    startActivityForResult(intentOpenExtraApps, REQUEST_OPEN_CHOOSEAPPS);
+                    intent.setAction(SmartKeyAction.ACTION_OPEN_CHOOSEAPPS_ACTIVITY);
+                    startActivityForResult(intent, REQUEST_OPEN_CHOOSEAPPS);
                 }else {
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(FUNCTION_BEAN, functionBean);
-                    bundle.putInt(FrontToolBoxActivity.ITEM_REAL_POSITION, itemPosition);
-                    bundle.putInt(FrontToolBoxActivity.FUNCTION_FUNCID, funcTionId);
                     String data5 = null;
                     if (funcTionId == 5){
-                        data5 = "5";
+                        data5 = Function.METHOD_TYPE_OPEN_NOTIFICATION + "";
                     }else if (funcTionId == 7){
-                        data5 = "4";
+                        data5 = Function.METHOD_TYPE_OPEN_FLASHLIGHT + "";
                     }
-
-                    Intent mIntentNormal = new Intent();
-                    mIntentNormal.putExtras(bundle);
-                    mIntentNormal.putExtra("data5", data5);
-
-                    setResult(RESULT_OK, mIntentNormal);
+                    settingsBean.setData5(data5);
+                    bundle.putSerializable(FrontToolBoxActivity.SETTINGS_BEAN, settingsBean);
+                    setResult(RESULT_OK, intent);
                     finish();
-
                 }
             }
 
@@ -168,13 +165,24 @@ public class ChooseFunctionActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Settings setitngsBean;
         if (resultCode == RESULT_OK){
             if (requestCode == REQUEST_OPEN_SETURL){
 
             }else if (requestCode == REQUEST_OPEN_CHOOSECONTACTS){
 
             }else if (requestCode == REQUEST_OPEN_CHOOSEAPPS){
-
+                setResult(RESULT_OK, data);
+                Settings settingsBean = (Settings) data.getSerializableExtra(FrontToolBoxActivity.SETTINGS_BEAN);
+                String packageName = settingsBean.getData2();
+                String activityClassName = settingsBean.getData3();
+                byte[] iconBytes = settingsBean.getFuncAcIconBytes();
+                String appsName = settingsBean.getFuncAcName();
+                Log.d("LHRTAG", "ChooseFunctionActivity packageName " + packageName);
+                Log.d("LHRTAG", "ChooseFunctionActivity activityClassName " + activityClassName);
+                Log.d("LHRTAG", "ChooseFunctionActivity iconBytes " + iconBytes);
+                Log.d("LHRTAG", "ChooseFunctionActivity appsName " + appsName);
+                finish();
             }else {
 
             }

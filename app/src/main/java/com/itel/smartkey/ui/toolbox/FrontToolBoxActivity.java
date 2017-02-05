@@ -2,12 +2,15 @@ package com.itel.smartkey.ui.toolbox;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -15,7 +18,6 @@ import com.itel.smartkey.R;
 import com.itel.smartkey.adapter.FrontToolboxFuncAdapter;
 import com.itel.smartkey.adapter.SimpleItemTouchHelperCallback;
 import com.itel.smartkey.base.BaseActivity;
-import com.itel.smartkey.bean.Function;
 import com.itel.smartkey.bean.Settings;
 import com.itel.smartkey.service.DBService;
 import com.itel.smartkey.ui.function.ChooseFunctionActivity;
@@ -34,7 +36,6 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
     public static final String FUNCTION_FUNCID = "funcid";
     public static final String FUNCTION_BEAN = "functinBean";
     public static final String SETTINGS_BEAN = "settingsBean";
-
     public static final int REQUEST_CHOOSE_FUNCTION = 1;
 
     private RelativeLayout relative_layout;
@@ -43,13 +44,11 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
     private RecyclerView mRecyclerView;
     private FrontToolboxFuncAdapter mAdapter;
     private Context mContext;
-    private List<Settings> mRvDatas = new ArrayList<>();;
+    private List<Settings> mRvDatas = new ArrayList<>();
     private ImageView ivBackground;
+    private CardView cardview_fronttoolbox;
 
-    private DBService mDBService;
-
-
-
+    private DBService mDBService;//操作数据库的工具类
 
 
     @Override
@@ -58,15 +57,22 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        //add for animotion lhr 2017/2/4
+        //cardview的动画效果
+        Animation animCardview = AnimationUtils.loadAnimation(mContext, R.anim.anim_main_cardview_fronttoolbox_scale);
+        cardview_fronttoolbox.startAnimation(animCardview);
+    }
+
+    @Override
     protected void initView() {
         mContext = this;
         mDBService = new DBService(mContext);
 
-
-
-
         ivBackground = (ImageView) findViewById(R.id.background);
         startBackgroundAnimtion(mContext, ivBackground);
+        cardview_fronttoolbox = (CardView) findViewById(R.id.cardview_fronttoolbox);
 
         //初始化toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -74,7 +80,6 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
 
         //初始化recycleview
         initRecyclerView();
-
     }
 
     /**
@@ -83,12 +88,12 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
     private void initRecyclerView() {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_fronttoolbox);
 
-        mAdapter = new FrontToolboxFuncAdapter(mContext,mRvDatas);
+        mAdapter = new FrontToolboxFuncAdapter(mContext, mRvDatas);
         mAdapter.setOnItemClickListener(new FrontToolboxFuncAdapter.OnItemClickListener() {
             @Override
             public void itemClick(View view, int position) {//进去选择功能界面，获取对应的funcId并返回Functin，
-                                                                // 如果有额外参数需要配置（如联系人，打开网址，打开app），则同时返回对应的参数
-                Log.d("LHRTAG", "点击了 " + position + "项" );
+                // 如果有额外参数需要配置（如联系人，打开网址，打开app），则同时返回对应的参数
+                Log.d("LHRTAG", "点击了 " + position + "项");
 
                 Intent intent = new Intent(mContext, ChooseFunctionActivity.class);
                 intent.putExtra(ITEM_REAL_POSITION, position);
@@ -113,7 +118,19 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
      */
     @Override
     protected void initData() {
-        mRvDatas.addAll(mDBService.findAllSettings());
+        //add for fix load icon lhr 2017/2/4
+        initRecyclerViewDatas();
+    }
+
+    /**
+     * 初始化recyclerView的数据源
+     */
+    private void initRecyclerViewDatas() {
+        List<Settings> mFindedRvDatas = mDBService.findAllSettings();
+        mRvDatas.clear();
+        for (int i=0; i<mFindedRvDatas.size()-2; i++){
+            mRvDatas.add(mFindedRvDatas.get(i));
+        }
         mAdapter.notifyDataSetChanged();
     }
 
@@ -121,30 +138,81 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
-            if (requestCode == REQUEST_CHOOSE_FUNCTION){//获取得到的intent，获取其中的funcid
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_CHOOSE_FUNCTION) {//获取得到的intent，获取其中的funcid
                 int itemPosition = data.getIntExtra(ITEM_REAL_POSITION, 0);
+                Settings mSettingsBean = mRvDatas.get(itemPosition);
                 int funcId = data.getIntExtra(FUNCTION_FUNCID, -1);
                 Log.d("LHRTAG", "FrontToolBoxActivity funcId " + funcId);
-                Function functionBean = (Function) data.getSerializableExtra(FUNCTION_BEAN);
-                String data5 = data.getStringExtra("data5");
-                Log.d("LHRTAG", "FrontToolBoxActivity data5" + data5);
-                Settings settingsBean = (Settings) data.getSerializableExtra(SETTINGS_BEAN);
-                if (settingsBean == null){
-                    settingsBean = new Settings();
-                    settingsBean.setFuncId(funcId);
-                    if (data5 != null){
-                        settingsBean.setData5(data5);
-                    }
-                    settingsBean.setFuncAcId(itemPosition);
-                    mDBService.updateSettings(settingsBean);
-                    mRvDatas.set(itemPosition, settingsBean);
-                    mAdapter.notifyDataSetChanged();
+                Log.d("LHRTAG", "FrontToolBoxActivity funcAcId " + mSettingsBean.getFuncAcId());
+                mSettingsBean.setFuncId(funcId);
 
+                Settings mTempSettingsBean = (Settings) data.getSerializableExtra(SETTINGS_BEAN);
+                String url = mTempSettingsBean.getData1();
+                String packageName = mTempSettingsBean.getData2();
+                String activityClass = mTempSettingsBean.getData3();
+                String phonenumber = mTempSettingsBean.getData4();
+                String methodType = mTempSettingsBean.getData5();
+                String data6 = mTempSettingsBean.getData6();
+                String data7 = mTempSettingsBean.getData7();
+                byte[] funcAcIconBytes = mTempSettingsBean.getFuncAcIconBytes();
+                String name = mTempSettingsBean.getFuncAcName();
+
+                Log.d("LHRTAG", "FrontToolBoxActivity tem packageName " + packageName);
+                Log.d("LHRTAG", "FrontToolBoxActivity tem activityClassName " + activityClass);
+                Log.d("LHRTAG", "FrontToolBoxActivity tem iconBytes " + funcAcIconBytes);
+                Log.d("LHRTAG", "FrontToolBoxActivity data5 " + methodType);
+
+                if (mTempSettingsBean != null){
+//                    if (name != null){
+                        mSettingsBean.setFuncAcName(name);
+//                    }
+//                    if (funcAcIconBytes != null){
+                        mSettingsBean.setFuncAcIconBytes(funcAcIconBytes);
+//                    }
+//                    if (url != null){
+                        mSettingsBean.setData1(url);
+//                    }
+//                    if (packageName != null){
+                        mSettingsBean.setData2(packageName);
+//                    }
+//                    if (activityClass != null){
+                        mSettingsBean.setData3(activityClass);
+//                    }
+//                    if (phonenumber != null){
+                        mSettingsBean.setData4(phonenumber);
+//                    }
+//                    if (methodType != null){
+                        mSettingsBean.setData5(methodType);
+//                    }
+//                    if (data6 != null){
+                        mSettingsBean.setData6(data6);
+//                    }
+//                    if (data7 != null){
+                        mSettingsBean.setData7(data7);
+//                    }
                 }
+                Log.d("LHRTAG", "FrontToolBoxActivity packageName " + mSettingsBean.getData2());
+                Log.d("LHRTAG", "FrontToolBoxActivity activityClassName " + mSettingsBean.getData3());
+                Log.d("LHRTAG", "FrontToolBoxActivity iconBytes " + mSettingsBean.getFuncAcIconBytes());
+                Log.d("LHRTAG", "FrontToolBoxActivity data5 " + mSettingsBean.getData5());
+                mAdapter.notifyDataSetChanged();
+                Log.d("LHRTAG", "FrontToolBoxActivity mSettingsBean.getFuncAcId() " + mSettingsBean.getFuncAcId());
+                mDBService.updateSettings(mSettingsBean);
+//                setSettingsBeanToDb();
             }
         }
 
+    }
+
+    private void setSettingsBeanToDb() {
+        for (int i = 0; i < mRvDatas.size(); i++ ){
+            int idIncre = i+1;
+            int reault = mDBService.updateSettingsById(mRvDatas.get(i), idIncre);
+            Log.d("LHRTAG", "FrontToolBoxActivity reault " + reault);
+            Log.d("LHRTAG", "FrontToolBoxActivity mDatas.funcId " + mRvDatas.get(i).getFuncId());
+            Log.d("LHRTAG", "FrontToolBoxActivity mDatas.funcAcId " + mRvDatas.get(i).getFuncAcId());
+        }
     }
 
     @Override

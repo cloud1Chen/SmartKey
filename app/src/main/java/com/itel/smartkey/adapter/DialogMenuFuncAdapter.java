@@ -12,9 +12,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.itel.smartkey.R;
+import com.itel.smartkey.bean.Function;
 import com.itel.smartkey.bean.Settings;
 import com.itel.smartkey.contants.MyContants;
 import com.itel.smartkey.listener.ItemTouchHelperAdapter;
+import com.itel.smartkey.service.DBService;
+import com.itel.smartkey.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +32,9 @@ public class DialogMenuFuncAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private Context mContext;
     private List<Settings> mDatas;
+    //add for icon lhr 2017/2/4
+    private DBService mDBService;//操作数据库的工具类
+
     private static final int VIEW_TYPE_ISFUNCTION = 1;
     private static final int VIEW_TYPE_NOTFUNCTION = 2;
     private OnItemClickListener onItemClickListener;
@@ -41,6 +47,9 @@ public class DialogMenuFuncAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public DialogMenuFuncAdapter(Context mContext, List<Settings> mDatas) {
         this.mContext = mContext;
         this.mDatas = mDatas;
+
+        //add for icon lhr 2017/2/4
+        mDBService = new DBService(mContext);
     }
 
     public void addDatas(ArrayList<Settings> mDatas){
@@ -81,14 +90,39 @@ public class DialogMenuFuncAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             public void onClick(View view) {
                 if (onItemClickListener != null){
                     Log.d("LHRTAG", "你点击了 " + position + "项，布局中的真实位置为 " + holder.getLayoutPosition() );
-                    onItemClickListener.itemClick(holder.itemView, holder.getLayoutPosition());
+                    onItemClickListener.itemClick(holder.itemView, position);
                 }
             }
         });
         if (holder instanceof FunctionViewHolder){//如果是有功能的item
             final FunctionViewHolder mHolder = (FunctionViewHolder) holder;
-            mHolder.tv_toolbox_name_with_icon.setText(mDatas.get(position).getFuncAcName());
-            Glide.with(mContext).load(mDatas.get(position).getFuncAcIconId()).into(mHolder.iv_toolbox_name_with_icon);
+            //add for icon lhr 2017/2/4 {
+            //读取名称
+            String itemName = mDatas.get(position).getFuncAcName();
+            Log.d("LHRTAG", "is itemName null" + (itemName != null ? "false" : "true"));
+            if (itemName != null){
+                mHolder.tv_toolbox_name_with_icon.setText(itemName);
+            }else {
+                Function functionBean = mDBService.findFunction(mDatas.get(position).getFuncId() + "");
+                Log.d("LHRTAG", "functionBean Id " + functionBean.getId() );
+                String name = functionBean.getName();
+                Log.d("LHRTAG", "name " + name);
+                mHolder.tv_toolbox_name_with_icon.setText(Utils.getStringById(mContext, name));
+            }
+            //add for icon lhr 2017/2/4 {
+            //读取图标
+            byte[] imageBytes = mDatas.get(position).getFuncAcIconBytes();
+            Log.d("LHRTAG", "is imageBytes null" + (imageBytes != null ? "false" : "true"));
+            if (imageBytes != null){//如果表2中保存有图标，则从表2中读取图标并设置
+                Glide.with(mContext).load(imageBytes).into(mHolder.iv_toolbox_name_with_icon);
+            } else{//从表1中获取图标
+                Function functionBean = mDBService.findFunction(mDatas.get(position).getFuncId() + "");
+                Log.d("LHRTAG", "functionBean Id " + functionBean.getId() );
+                int iconId = Utils.getDrawableIdByString(mContext, functionBean.getIcon() + "_toolbox");
+                Log.d("LHRTAG", "iconId " + iconId);
+                Glide.with(mContext).load(iconId).into(mHolder.iv_toolbox_name_with_icon);
+            }
+            //add end }
         }
 
         if (holder instanceof NotFunctionViewHolder){//如果没有功能的item,则什么都不显示

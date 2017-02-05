@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
 import com.itel.smartkey.R;
 
@@ -85,6 +84,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("LHRTAG", "navigation onClick");
                 finish();
+//                overridePendingTransition(R.anim.anim_activity_fade_out, R.anim.anim_activity_fade_in);
             }
         });
         if (isShowMenu){
@@ -95,7 +95,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.action_tool:
-                        Toast.makeText(getApplicationContext(), "打开工具箱", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getApplicationContext(), "打开工具箱", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent();
                         intent.setAction("com.itel.smartkey.action.MenuActivity");
                         startActivity(intent);

@@ -53,7 +53,7 @@ public class MyApplication extends Application {
         doubleClickDefaultBean.setFuncAcId(9);
         mDBService.addSetting(doubleClickDefaultBean);
 
-        Settings longClickDefaultBean = new Settings();
+        Settings longClickDefaultBean = new Settings();//长按默认为打开下拉通知栏
         longClickDefaultBean.setFuncAcId(10);
         longClickDefaultBean.setFuncId(5);
         longClickDefaultBean.setData5("5");

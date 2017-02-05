@@ -12,9 +12,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.itel.smartkey.R;
+import com.itel.smartkey.bean.Function;
 import com.itel.smartkey.bean.Settings;
 import com.itel.smartkey.contants.MyContants;
 import com.itel.smartkey.listener.ItemTouchHelperAdapter;
+import com.itel.smartkey.service.DBService;
+import com.itel.smartkey.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +32,9 @@ public class FrontToolboxFuncAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private Context mContext;
     private List<Settings> mDatas;
+    //add for icon lhr 2017/2/4
+    private DBService mDBService;//操作数据库的工具类
+
     private static final int VIEW_TYPE_ISFUNCTION = 1;
     private static final int VIEW_TYPE_NOTFUNCTION = 2;
     private OnItemClickListener onItemClickListener;
@@ -41,6 +47,9 @@ public class FrontToolboxFuncAdapter extends RecyclerView.Adapter<RecyclerView.V
     public FrontToolboxFuncAdapter(Context mContext, List<Settings> mDatas) {
         this.mContext = mContext;
         this.mDatas = mDatas;
+
+        //add for icon lhr 2017/2/4
+        mDBService = new DBService(mContext);
     }
 
     public void addDatas(ArrayList<Settings> mDatas){
@@ -93,20 +102,53 @@ public class FrontToolboxFuncAdapter extends RecyclerView.Adapter<RecyclerView.V
         });
         if (holder instanceof FunctionViewHolder){//如果是有功能的item
             final FunctionViewHolder mHolder = (FunctionViewHolder) holder;
-            mHolder.tv_toolbox_name_with_icon.setText(mDatas.get(position).getFuncAcName());
-            Glide.with(mContext).load(mDatas.get(position).getFuncAcIconId()).into(mHolder.iv_toolbox_name_with_icon);
-            mHolder.iv_toolbox_name_with_icon_delete.setOnClickListener(new View.OnClickListener() {
+            //add for icon lhr 2017/2/4 {
+            //读取名称
+            String itemName = mDatas.get(position).getFuncAcName();
+            Log.d("LHRTAG", "is itemName null" + (itemName != null ? "false" : "true"));
+            if (itemName != null){
+                mHolder.tv_toolbox_name_with_icon.setText(itemName);
+            }else {
+                Function functionBean = mDBService.findFunction(mDatas.get(position).getFuncId() + "");
+                Log.d("LHRTAG", "functionBean Id " + functionBean.getId() );
+                String name = functionBean.getName();
+                Log.d("LHRTAG", "name " + name);
+                mHolder.tv_toolbox_name_with_icon.setText(Utils.getStringById(mContext, name));
+            }
+
+            //add for icon lhr 2017/2/4 {
+            //读取图标
+            byte[] imageBytes = mDatas.get(position).getFuncAcIconBytes();
+            Log.d("LHRTAG", "is imageBytes null" + (imageBytes != null ? "false" : "true"));
+            if (imageBytes != null){//如果表2中保存有图标，则从表2中读取图标并设置
+                Glide.with(mContext).load(imageBytes).into(mHolder.iv_toolbox_name_with_icon);
+            } else{//从表1中获取图标
+                Function functionBean = mDBService.findFunction(mDatas.get(position).getFuncId() + "");
+                Log.d("LHRTAG", "functionBean Id " + functionBean.getId() );
+                int iconId = Utils.getDrawableIdByString(mContext, functionBean.getIcon() + "_toolbox");
+                Log.d("LHRTAG", "iconId " + iconId);
+                Glide.with(mContext).load(iconId).into(mHolder.iv_toolbox_name_with_icon);
+            }
+            //add end }
+
+
+            mHolder.iv_toolbox_name_with_icon_delete.setOnClickListener(new View.OnClickListener() {//删除按钮的点击事件
                 @Override
                 public void onClick(View view) {
                     int truePosition = holder.getLayoutPosition();
+                    Settings settignsBean = mDatas.get(truePosition);
+                    int mSettingsFuncAcId = settignsBean.getFuncAcId();//获取该item的funcAcId并保存下来
                     mDatas.remove(truePosition);
-//                    notifyItemRemoved(truePosition);
+                    notifyItemRemoved(truePosition);//展示删除的动画
                     Settings bean = new Settings();
+                    bean.setFuncAcId(mSettingsFuncAcId);//把刚才获取的funcAcId赋值给新的SettingsBean
                     bean.setFuncId(MyContants.NOT_FUNCTION);
+                    Log.d("LHRTAG", "FrontToolboxFuncAdapter FuncAcId " + mSettingsFuncAcId);
                     mDatas.add(bean);
                     if (truePosition != mDatas.size()) {
-                        notifyItemRangeChanged(truePosition, mDatas.size() - truePosition);
+                        notifyItemRangeChanged(truePosition, mDatas.size() - truePosition);//对于被删掉的位置及其后range大小范围内的view进行重新onBindViewHolder
                     }
+                    setSettingsBeanToDb();
                     Log.d("LHRTAG", "positon " + position);
                     Log.d("LHRTAG", "truePosition " + truePosition);
                     Log.d("LHRTAG", "mDatas size " + mDatas.size());
@@ -140,6 +182,23 @@ public class FrontToolboxFuncAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
         }
         notifyItemMoved(fromPosition, toPosition);
+        setSettingsBeanToDb();
+        Log.d("LHRTAG", "FrontToolboxFuncAdapter fromPosition " + fromPosition);
+        Log.d("LHRTAG", "FrontToolboxFuncAdapter toPosition " + toPosition);
+    }
+
+    /**
+     * 排序或者删除某一项导致mDatas数据集发生改变时，
+     * 把最新的settings保存到数据库表2("set_table")中
+     */
+    private void setSettingsBeanToDb() {
+        for (int i = 0; i<mDatas.size(); i++ ){
+            int idIncre = i+1;
+            int reault = mDBService.updateSettingsById(mDatas.get(i), idIncre);
+            Log.d("LHRTAG", "FrontToolboxFuncAdapter reault " + reault);
+            Log.d("LHRTAG", "FrontToolboxFuncAdapter mDatas.funcId " + mDatas.get(i).getFuncId());
+            Log.d("LHRTAG", "FrontToolboxFuncAdapter mDatas.funcAcId " + mDatas.get(i).getFuncAcId());
+        }
     }
 
     @Override
@@ -147,6 +206,9 @@ public class FrontToolboxFuncAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     }
 
+    /**
+     * 具有功能的ViewHolder
+     */
     class FunctionViewHolder extends RecyclerView.ViewHolder {
 
         ImageView iv_toolbox_name_with_icon;
@@ -161,6 +223,9 @@ public class FrontToolboxFuncAdapter extends RecyclerView.Adapter<RecyclerView.V
         }
     }
 
+    /**
+     * 不具有功能的ViewHolder
+     */
     class NotFunctionViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_toolbox_nofunctin;
 

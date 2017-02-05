@@ -27,6 +27,7 @@
                 layout="@layout/toolbar_layout"/>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/cardview_fronttoolbox"
                 android:layout_width="306dp"
                 android:layout_height="360dp"
                 android:layout_centerHorizontal="true"

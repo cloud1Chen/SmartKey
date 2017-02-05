@@ -49,7 +49,7 @@ id name icon function function_type parameter single_click_enable double_click_e
         <long_click_enable>1</long_click_enable>
         <close_enable>1</close_enable>
         <lock_enable>1</lock_enable>
-        <parameter_extra></parameter_extra>
+        <parameter_extra>isBeauty</parameter_extra>
     </fun>
     <!-- 一键加速 -->
     <fun>
