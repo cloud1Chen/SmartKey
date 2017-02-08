@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">SmartKey</string>
+    <string name="app_name">Smart Key</string>
     <string name="select_function">Select Function</string>
-    
+
+
     <!-- add lhr 20170119  -->
     <string name="open_an_app">Open an app</string>
     <string name="camera">Camera</string>
@@ -21,12 +22,13 @@
     <string name="add_now">Add Now</string>
 
     <!-- 主界面文案 -->
+    <string name="openmenu">Open menu</string>
     <string name="smartkey">Smart Key</string>
     <string name="set_functions">Set functions of the button on the back</string>
     <string name="click">Set 1-click</string>
     <string name="double_click">Set 2-click</string>
     <string name="long_click">Set long-press</string>
-    <string name="toolbar_title_choose_function">Shortcut Menu</string>
+    <string name="toolbar_title_choose_function">Select a function</string>
 
     <!-- 设置文案 -->
     <string name="smart_key_settings">Smart Key Settings</string>
@@ -36,6 +38,8 @@
     <string name="fast">Fast</string>
     <string name="vibration_feedback">Vibration Feedback</string>
     <string name="vibration_feedback_subtitle">Vibrate when press Smart Key</string>
+    <string name="enable_on_lock_screen">Enable on Lock Screen</string>
+    <string name="enable_on_lock_screen_subtitle">Make Smart Key available on Lock Screen</string>
     <string name="one_click_switch">Smart Key switch for 1-click</string>
     <string name="one_click_switch_subtitle">Enable or disable 1-click Smart Key</string>
     <string name="camera_switch">Smart Key as a shutter</string>
@@ -49,5 +53,23 @@
     <!-- toolbar颜色 -->
     <string name="toolbar_title_text_color_choose_function">505050</string>
     <string name="toolbar_background_color_choose_function">F3F4F5</string>
+
+    <!--工具箱文案-->
+    <string name="toolbox">Toolbox</string>
+    <string name="drag_to_move_the_shortcuts">Drag to move the shortcuts</string>
+
+    <!--选择联系人文案-->
+    <string name="please_select_number">Select a number</string>
+    <string name="choose_contacts">Select a contact</string>
+    <string name="access_the_contacts_permission_content">Please allow Smart Key access the contacts to enable 1-Click Dial.</string>
+    <string name="access_the_contacts_permission_cancel">Cancel</string>
+    <string name="access_the_contacts_permission_settings">Settings</string>
+    <string name="access_the_dialog_permission_content">Please allow Smart Key make phone calls to enable 1-Click Dial.</string>
+    <string name="access_the_dialog_permission_cancel">Cancel</string>
+    <string name="access_the_dialog_permission_settings">Settings</string>
+
+    <!--选择APPS文案-->
+    <string name="choose_apps">Open an app</string>
+
 
 </resources>

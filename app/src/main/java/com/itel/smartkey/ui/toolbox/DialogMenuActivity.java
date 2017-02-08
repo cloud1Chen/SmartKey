@@ -108,7 +108,7 @@ public class DialogMenuActivity extends AppCompatActivity implements View.OnClic
                 if (funcId == MyContants.NOT_FUNCTION){
                     Toast.makeText(mContext, "还没有设置功能，请设置噢", Toast.LENGTH_SHORT).show();
                 }else{
-                    Execute.run(mContext, funcAcId, -1, null);
+                    Execute.run(mContext, funcAcId, Execute.MODE_SINGLE_CLICK, null);
                     DialogMenuActivity.this.finish();
                 }
             }
@@ -121,10 +121,10 @@ public class DialogMenuActivity extends AppCompatActivity implements View.OnClic
     private void initDatas() {
         //add for fix load icon lhr 2017/2/4 {
         List<Settings> mFindedRvDatas = mDBService.findAllSettings();
+        Log.d("LHRTAG", "DialogMenuActivity mFindedRvDatas.size " + mFindedRvDatas.size());
         mRvDatas.clear();
-        for (int i=0; i<mFindedRvDatas.size()-2; i++){
+        for (int i = 2; i < mFindedRvDatas.size(); i++){
             mRvDatas.add(mFindedRvDatas.get(i));
-            Log.d("LHRTAG", "DialogMenuActivity mRvDatas.funcAcId " + mRvDatas.get(i).getFuncId());
         }
         Log.d("LHRTAG", "Dialog mRvDatas size " + mRvDatas.size());
         //fix end }

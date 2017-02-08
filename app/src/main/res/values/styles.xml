@@ -1,13 +1,14 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
         <!-- recycleview的item的下划线-->
-        <item name="android:listDivider">@drawable/select_contatcs_divider</item>
+        <!--<item name="android:listDivider">@drawable/select_contatcs_divider</item>-->
+        <item name="android:listDivider">@drawable/rv_item_divider</item>
     </style>
 
     <!-- popupWindow的弹出和关闭的动画 -->
@@ -19,8 +20,8 @@
     <!-- 沉浸式状态栏 -->
     <style name="AppTheme.ImmersiveTheme">
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
     <!--弹框风格的activity样式-->
@@ -29,10 +30,23 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <!--半透明悬浮于activity之上的activity样式-->
+    <!--半透明悬浮于activity之上的activity样式（用于拨打电话界面、淡出菜单栏界面）-->
     <style  name="translucent" parent="Theme.AppCompat.Light.NoActionBar">
         <!--<item name="android:windowFrame">@null</item>&lt;!&ndash; 边框 &ndash;&gt;-->
         <item name="android:windowIsFloating">true</item><!-- 是否悬浮在activity上 -->
+        <item name="android:windowIsTranslucent">true</item><!-- 半透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item><!-- 背景透明 -->
+        <item name="android:backgroundDimEnabled">true</item><!-- 模糊 -->
+        <item name="android:backgroundDimAmount">0.8</item><!-- 灰度 -->
+        <!--<item name="android:windowNoTitle">true</item>&lt;!&ndash; 无标题 &ndash;&gt;-->
+        <!--<item name="android:windowContentOverlay">@null</item>&lt;!&ndash; 窗口是否有遮盖 &ndash;&gt;-->
+        <!--<item name="android:colorBackgroundCacheHint">@null</item>&lt;!&ndash; 背景缓存颜色 &ndash;&gt;-->
+    </style>
+
+    <!--半透明悬浮于activity之上的activity样式（用于设置网址界面）-->
+    <style  name="translucentforsetupneturl" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--<item name="android:windowFrame">@null</item>&lt;!&ndash; 边框 &ndash;&gt;-->
+        <!--<item name="android:windowIsFloating">true</item>&lt;!&ndash; 是否悬浮在activity上 &ndash;&gt;-->
         <item name="android:windowIsTranslucent">true</item><!-- 半透明 -->
         <item name="android:windowBackground">@android:color/transparent</item><!-- 背景透明 -->
         <item name="android:backgroundDimEnabled">true</item><!-- 模糊 -->
@@ -47,7 +61,27 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <!-- 转场动画淡入淡出的style -->
+    <style name="CustomTheme" parent="translucent">
+        <item name="android:windowAnimationStyle">@style/FadeAnimationStyle</item>
+    </style>
 
+    <style name="FadeAnimationStyle" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_activity_fade_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_activity_fade_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/anim_activity_fade_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/anim_activity_fade_out</item>
+    </style>
 
+    <!--自定义switch的按钮和轨迹颜色theme-->
+    <style name="mySwitch" parent="Theme.AppCompat.Light">
+        <!-- switch 打开时的按钮的颜色 轨迹颜色默认为30%（看效果就明白30%是怎么回事了）这个颜色 -->
+        <!--<item name="colorControlActivated">@android:color/holo_green_dark</item>-->
+        <!--  switch关闭时的按钮的颜色 -->
+        <!--<item name="colorSwitchThumbNormal">@color/colorAccent</item>-->
+        <!-- switch关闭时的轨迹的颜色 30%这个颜色 -->
+        <!--<item name="android:colorForeground">@color/colorPrimaryDark</item>-->
+
+    </style>
 
 </resources>

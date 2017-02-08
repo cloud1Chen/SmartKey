@@ -1,0 +1,75 @@
+<resources>
+    <string name="app_name">स्मार्ट कुंजी</string>
+    <string name="select_function">功能菜单</string>
+
+
+    <!-- add lhr 20170119  -->
+    <string name="open_an_app">एक एप्लिकेशन खोलें</string>
+    <string name="camera">कैमरा</string>
+    <string name="beauty_selfie">सौंदर्य सेल्फी</string>
+    <string name="click_accelerate">में तेजी लाने के 1 क्लिक करें</string>
+    <string name="notification_bar">अधिसूचना बार</string>
+    <string name="screenshot">स्क्रीनशॉट</string>
+    <string name="flash_light">मशाल</string>
+    <string name="standby_camera">स्टैंडबाय-कैमरा</string>
+    <string name="open_an_url">एक यूआरएल को खोलने ...</string>
+    <string name="call_phone">एक करने के लिए कॉल करें ...</string>
+    <string name="listen_to_radio">एक रेडियो स्टेशन के लिए सुनो ...</string>
+    <string name="share_pic_to_facebook">फेसबुक के लिए अभियान</string>
+    <string name="sos">मुसीबत का इशारा</string>
+    
+    <string name="no_add_any_function">कोई शॉर्टकट जोड़ा।</string>
+    <string name="add_now">अभी जोड़ें</string>
+
+    <!-- 主界面文案 -->
+    <string name="openmenu">ओपन मेनू</string>
+    <string name="smartkey">स्मार्ट कुंजी</string>
+    <string name="set_functions">पीठ पर बटन के सेट कार्यों</string>
+    <string name="click">1-क्लिक सेट</string>
+    <string name="double_click">2-क्लिक सेट</string>
+    <string name="long_click">लंबे समय से प्रेस सेट</string>
+    <string name="toolbar_title_choose_function">एक समारोह का चयन करें</string>
+
+    <!-- 设置文案 -->
+    <string name="smart_key_settings">स्मार्ट कुंजी सेटिंग</string>
+    <string name="adjust_2click_speed">2-क्लिक करें समायोजित गति</string>
+    <string name="slow">धीरे</string>
+    <string name="normal">साधारण</string>
+    <string name="fast">उपवास</string>
+    <string name="vibration_feedback">कंपन प्रतिक्रिया</string>
+    <string name="vibration_feedback_subtitle">कंपन जब प्रेस स्मार्ट कुंजी</string>
+    <string name="enable_on_lock_screen">लॉक स्क्रीन पर सक्षम करें</string>
+    <string name="enable_on_lock_screen_subtitle">स्मार्ट कुंजी लॉक स्क्रीन पर उपलब्ध कराएं</string>
+    <string name="one_click_switch">1-क्लिक के लिए स्मार्ट कुंजी स्विच</string>
+    <string name="one_click_switch_subtitle">सक्षम या अक्षम स्मार्ट कुंजी 1 क्लिक करें</string>
+    <string name="camera_switch">एक शटर के रूप में स्मार्ट कुंजी</string>
+    <string name="camera_switch_subtitle">कैमरा अनुप्रयोग में एक शटर के रूप में स्मार्ट कुंजी का प्रयोग करें।</string>
+
+    <!-- 设置网址文案 -->
+    <string name="enter_an_url">एक URL दर्ज करें</string>
+    <string name="setup_url_cancel">रद्द करना</string>
+    <string name="setup_url_ok">ठीक</string>
+
+    <!-- toolbar颜色 -->
+    <string name="toolbar_title_text_color_choose_function">505050</string>
+    <string name="toolbar_background_color_choose_function">F3F4F5</string>
+    
+    <!--工具箱文案-->
+    <string name="toolbox">टूलबॉक्स</string>
+    <string name="drag_to_move_the_shortcuts">खींचें शॉर्टकट स्थानांतरित करने के लिए</string>
+
+    <!--选择联系人文案-->
+    <string name="please_select_number">एक नंबर का चयन करें</string>
+    <string name="choose_contacts">एक संपर्क का चयन करें</string>
+    <string name="access_the_contacts_permission_content">कृपया स्मार्ट कुंजी संपर्कों का उपयोग सक्षम करने की अनुमति डायल 1-क्लिक करें।</string>
+    <string name="access_the_contacts_permission_cancel">रद्द करना</string>
+    <string name="access_the_contacts_permission_settings">सेटिंग्स</string>
+    <string name="access_the_dialog_permission_content">कृपया स्मार्ट कुंजी फोन कॉल 1 क्लिक डायल करने के लिए सक्षम बनाने के लिए अनुमति देते हैं।</string>
+    <string name="access_the_dialog_permission_cancel">रद्द करना</string>
+    <string name="access_the_dialog_permission_settings">सेटिंग्स</string>
+
+    <!--选择APPS文案-->
+    <string name="choose_apps">एक एप्लिकेशन खोलें</string>
+
+
+</resources>

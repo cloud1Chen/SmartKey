@@ -18,11 +18,11 @@ import com.itel.smartkey.contants.SmartKeyAction;
 import com.itel.smartkey.service.DBService;
 import com.itel.smartkey.ui.phone.SelectContactsItemDecoration;
 import com.itel.smartkey.ui.toolbox.FrontToolBoxActivity;
+import com.itel.smartkey.utils.Execute;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.itel.smartkey.ui.toolbox.FrontToolBoxActivity.ITEM_REAL_POSITION;
 
 
 /**
@@ -40,6 +40,10 @@ public class ChooseFunctionActivity extends BaseActivity {
     public static final int REQUEST_OPEN_CHOOSECONTACTS = 2;
     public static final int REQUEST_OPEN_CHOOSEAPPS = 3;
 
+    //根据模式（单击、双击、长按）来加载不同的数据（给RecyclerView加载不同的数据集）
+    public static final String KEY_FUNCTIONMODE = "selectFunctionMode";
+    private int selectFunctionMode;
+
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private ChooseFunctionAdapter functionsAdapter;
@@ -55,7 +59,7 @@ public class ChooseFunctionActivity extends BaseActivity {
 
     //调起的intent以及相关参数
     private Intent mIntent;
-    private int itemPosition;
+//    private int itemPosition;
 
 
 
@@ -75,7 +79,8 @@ public class ChooseFunctionActivity extends BaseActivity {
 
         //获得调起的intent
         mIntent = getIntent();
-        itemPosition = mIntent.getIntExtra(ITEM_REAL_POSITION, 0);
+        selectFunctionMode = mIntent.getIntExtra(ChooseFunctionActivity.KEY_FUNCTIONMODE, -1);
+//        itemPosition = mIntent.getIntExtra(FrontToolBoxActivity.ITEM_REAL_POSITION, 0);
 
         //add 2017 1 23
         service = new DBService(this);
@@ -105,13 +110,26 @@ public class ChooseFunctionActivity extends BaseActivity {
 
                 Function functionBean = mDatas.get(position);
                 int funcTionId = functionBean.getId();
+                /*
+                创建一个settingsBean，用于保存参数，并回传给调起的界面(单击选择功能、双击选择功能、长按选择功能)
+                settingsBean.setFuncId(funcTionId);
+                bundle.putSerializable(FrontToolBoxActivity.FUNCTION_BEAN, functionBean);(没有使用到)
+                bundle.putSerializable(FrontToolBoxActivity.SETTINGS_BEAN, settingsBean);(保存settingsBean)
+                bundle.putInt(FrontToolBoxActivity.FUNCTION_FUNCID, funcTionId);(保存funcId)
+                intent.putExtras(bundle);
+                以上是保存通用的参数
+                针对不同的需要额外参数的功能（如打电话给某人、选择apps、打开网址）
+                针对使用方法（methodType）打开的功能（如打开手电筒，打开通知栏）需要设置data5参数
+                以上需要Intent.getSerializableExtra(FrontToolBoxActivity.SETTINGS_BEAN);获得该settignsBean并设置参数后再重新set
+                 */
                 Settings settingsBean = new Settings();
                 settingsBean.setFuncId(funcTionId);
                 bundle.putSerializable(FrontToolBoxActivity.FUNCTION_BEAN, functionBean);
                 bundle.putSerializable(FrontToolBoxActivity.SETTINGS_BEAN, settingsBean);
-                bundle.putInt(FrontToolBoxActivity.ITEM_REAL_POSITION, itemPosition);
+//                bundle.putInt(FrontToolBoxActivity.ITEM_REAL_POSITION, itemPosition);
                 bundle.putInt(FrontToolBoxActivity.FUNCTION_FUNCID, funcTionId);
                 intent.putExtras(bundle);
+
                 Log.d("LHRTAG", "funcTionId " + funcTionId);
                 if (funcTionId == 9){//打开网址
                     intent.setAction(SmartKeyAction.ACTION_OPEN_SETUPURL_ACTIVITY);
@@ -151,6 +169,13 @@ public class ChooseFunctionActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        initRecyclerViewDataBySelectFunctionMode();
+    }
+
+    /**
+     * 根据调起时的模式展示单击、双击、长按模式下的功能
+     */
+    private void initRecyclerViewDataBySelectFunctionMode() {
         List<Function> list = service.findAllFunction();
         Log.d("jlog", "list:" + list.size());
         for(int i=0;i<list.size();i++)
@@ -158,7 +183,30 @@ public class ChooseFunctionActivity extends BaseActivity {
             Function f = list.get(i);
             Log.d("jlog", "id:" + f.getId() + " name:" + f.getName());
         }
-        mDatas.addAll(list);
+        mDatas.clear();
+        if (selectFunctionMode == Execute.MODE_SINGLE_CLICK){//加载单击功能并展示给用户进行选择
+            for (int i=0; i<list.size(); i++){
+                if (list.get(i).getSingleCick()){
+                    mDatas.add(list.get(i));
+                }
+            }
+        }else if (selectFunctionMode == Execute.MODE_DOUBLE_CLICK){//加载双击功能并展示给用户进行选择
+            for (int i=0; i<list.size(); i++){
+                if (list.get(i).getDoubleClick()){
+                    mDatas.add(list.get(i));
+                }
+            }
+        }else if (selectFunctionMode == Execute.MODE_LONG_CLICK){//加载长按功能并展示给用户进行选择
+            for (int i=0; i<list.size(); i++){
+                if (list.get(i).getLongClick()){
+                    mDatas.add(list.get(i));
+                }
+            }
+        }else {
+            for (int i=0; i<list.size(); i++){
+                mDatas.add(list.get(i));
+            }
+        }
         functionsAdapter.notifyDataSetChanged();
     }
 
@@ -168,9 +216,11 @@ public class ChooseFunctionActivity extends BaseActivity {
         Settings setitngsBean;
         if (resultCode == RESULT_OK){
             if (requestCode == REQUEST_OPEN_SETURL){
-
+                setResult(RESULT_OK, data);
+                finish();
             }else if (requestCode == REQUEST_OPEN_CHOOSECONTACTS){
-
+                setResult(RESULT_OK, data);
+                finish();
             }else if (requestCode == REQUEST_OPEN_CHOOSEAPPS){
                 setResult(RESULT_OK, data);
                 Settings settingsBean = (Settings) data.getSerializableExtra(FrontToolBoxActivity.SETTINGS_BEAN);

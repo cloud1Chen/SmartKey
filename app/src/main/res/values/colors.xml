@@ -14,7 +14,17 @@
     <color name="setup_url_cancel_text_color">#505050</color>
     <color name="setup_url_ok_text_color">#f33111</color>
 
-    <color name="transparent">#9000</color>
+    <color name="transparent_myfix">#1000</color>
+    <color name="transparent_android_native">#00000000</color>
+
+    <!--主界面菜单栏的相关颜色-->
+    <color name="tv_main_click_color">#505050</color>
+    <color name="tv_main_click_sub_color">#8d8d8d</color>
+    <color name="divider_main_ll_color">#FFFFFF</color>
+    <color name="divider_main_buttongroup_color">#e5e5e5</color>
+
+    <!--选择功能界面的相关颜色-->
+    <color name="tv_drag_to_move_the_shortcuts_textcolor">#FFFFFF</color>
 
     <!--<color name="red_226">#E25E5E</color>-->
     <!--<color name="error_color">#FF4081</color>-->

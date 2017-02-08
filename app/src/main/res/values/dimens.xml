@@ -3,8 +3,12 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="iv_choose_function_icon_width">36dp</dimen>
-    <dimen name="iv_choose_function_icon_height">36dp</dimen>
+    <dimen name="iv_choose_function_icon_width">24dp</dimen>
+    <dimen name="iv_choose_function_icon_height">24dp</dimen>
+    <dimen name="iv_toolbox_name_with_icon_width">28dp</dimen>
+    <dimen name="iv_toolbox_name_with_icon_height">28dp</dimen>
+    <dimen name="iv_layout_nofunction_add_width">28dp</dimen>
+    <dimen name="iv_layout_nofunction_add_height">28dp</dimen>
     <dimen name="item_layout_rv_choose_function_height">64dp</dimen>
     <dimen name="tv_choose_function_name_textsize">16sp</dimen>
     
@@ -12,6 +16,17 @@
     <dimen name="settings_item2_layout_height_title_text_size">16sp</dimen>
     <dimen name="settings_item2_layout_height_subtitle_text_size">12sp</dimen>
     <dimen name="setup_url_cancel_ok_textsize">16sp</dimen>
+
+    <!--主界面菜单栏的文字的相关尺寸-->
+    <dimen name="tv_main_click_textsize">14sp</dimen>
+    <dimen name="tv_main_click_sub_textsize">10sp</dimen>
+    <dimen name="divider_main_ll_height">1px</dimen>
+
+    <!--选择功能界面的文字的相关尺寸-->
+    <dimen name="tv_drag_to_move_the_shortcuts_textsize">12sp</dimen>
+
+    <!---->
+    <dimen name="bar_public_projection_height">12dp</dimen>
 
     <!--<dimen name="top">40dp</dimen>-->
 

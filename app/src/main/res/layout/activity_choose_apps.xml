@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
+    android:background="#F3F4F5"
     android:orientation="vertical"
     tools:context="com.itel.smartkey.ui.function.ChooseAppsActivity"
     >
@@ -18,7 +19,7 @@
     <!-- 阴影 -->
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="6dp"
+        android:layout_height="@dimen/bar_public_projection_height"
         android:scaleType="fitXY"
         android:src="@drawable/bar_shadow"/>
 

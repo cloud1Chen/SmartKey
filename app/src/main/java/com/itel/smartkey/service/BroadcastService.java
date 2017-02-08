@@ -10,16 +10,17 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.os.Vibrator;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 
+import com.itel.smartkey.MainActivity;
 import com.itel.smartkey.bean.Function;
-import com.itel.smartkey.bean.Settings;
+import com.itel.smartkey.contants.MyContants;
 import com.itel.smartkey.contants.SmartKeyAction;
 import com.itel.smartkey.utils.Execute;
 import com.itel.smartkey.utils.Flashlight;
-
-import java.util.List;
+import com.itel.smartkey.utils.PreferenceUtils;
 
 
 public class BroadcastService extends Service {
@@ -36,6 +37,9 @@ public class BroadcastService extends Service {
 
     static int mClick = 0;
     long mTime = 0;
+    private long doubleClickSpeed = 400;
+    private boolean isSingleClickEffect = true;//单击是否弹出菜单功能
+    boolean canVibrate;//是否允许震动
     int mStartMode;
     public static final int MODE_SINGLE_CLICK = 1;
     public static final int MODE_DOUBLE_CLICK = 2;
@@ -47,7 +51,15 @@ public class BroadcastService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         mDBService = new DBService(this);
+        String strDoubleClickSpeed = PreferenceUtils.getString(this, MyContants.KEY_DOUBLE_SPEED, "400");
+        doubleClickSpeed =  Long.parseLong(strDoubleClickSpeed);
+        Log.d("LHRTAG", "doubleClickSpeed " + doubleClickSpeed);
 
+        isSingleClickEffect = PreferenceUtils.getBoolean(this, MyContants.KEY_IS_CLICK_EFFECT, true);
+        Log.d("LHRTAG", "isSingleClickEffect " + isSingleClickEffect + "System.currentTimeMillis()" + System.currentTimeMillis());
+
+        canVibrate = PreferenceUtils.getBoolean(this, MyContants.KEY_IS_VIBRATE_OPENED, false);
+        Log.d("LHRTAG", "canVibrate " + canVibrate + "System.currentTimeMillis() " + System.currentTimeMillis());
 
         // The service is starting, due to a call to startService()
         String data = intent.getStringExtra("data");
@@ -65,48 +77,72 @@ public class BroadcastService extends Service {
                         mTime = mTime / 1000000;
                         Log.d("jlog", "-------------mClick:" + mClick + " time:" + mTime);
 
-                        Settings settingsBean = mDBService.findSettingsById("9");
-                        int funcId = settingsBean.getFuncId();
-                        Function functionBean = mDBService.findFunction(funcId + "");
-                        if (functionBean.getFunction_type() == Function.FUN_TYPE_RUN_METHOD) {//如果是通过打开方法类型执行
-                            Execute.runMethod(BroadcastService.this, functionBean, settingsBean, -1, null);
-                        } else if (functionBean.getFunction_type() == Function.FUN_TYPE_OPEN_APP) {//通过打开app类型执行,这里又分为两种：1、通过选择app设置的方式  2、通过我们预置的方式
-                            Execute.openApp(BroadcastService.this, functionBean, settingsBean, -1, null);
+//                        Settings settingsBean = mDBService.findSettingsById(MainActivity.POSITION_DOUBLECLICK);
+//                        int funcId = settingsBean.getFuncId();
+//                        Function functionBean = mDBService.findFunction(funcId + "");
+//                        if (functionBean.getFunction_type() == Function.FUN_TYPE_RUN_METHOD) {//如果是通过打开方法类型执行
+//                            Execute.runMethod(BroadcastService.this, functionBean, settingsBean, Execute.MODE_DOUBLE_CLICK, null);
+//                        } else if (functionBean.getFunction_type() == Function.FUN_TYPE_OPEN_APP) {//通过打开app类型执行,这里又分为两种：1、通过选择app设置的方式  2、通过我们预置的方式
+//                            Execute.openApp(BroadcastService.this, functionBean, settingsBean, Execute.MODE_DOUBLE_CLICK, null);
+//                        }
+                        //使用smartkey时是否允许震动提示
+                        if (canVibrate){
+                            Vibrator vibrator = (Vibrator) BroadcastService.this.getSystemService(Context.VIBRATOR_SERVICE);
+                            vibrator.vibrate(50);
                         }
+                        Execute.run(BroadcastService.this, Integer.parseInt(MainActivity.POSITION_DOUBLECLICK), Execute.MODE_DOUBLE_CLICK, null);
 
 
 //                        //openApp("camera", MODE_DOUBLE_CLICK, null);
 //                        Execute.openApp(BroadcastService.this, 1, MODE_DOUBLE_CLICK, null);
                     } else if (mClick == 1) {//单击事件
                         Log.d("jlog", "运行单击事件");
-                        Intent intentOpenDialogMenuActivity = new Intent();
-                        intentOpenDialogMenuActivity.setAction(SmartKeyAction.ACTION_OPEN_DIALOGMENU_ACTIVITY);
-                        intentOpenDialogMenuActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intentOpenDialogMenuActivity.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-                        startActivity(intentOpenDialogMenuActivity);
+                        isSingleClickEffect = PreferenceUtils.getBoolean(BroadcastService.this, MyContants.KEY_IS_CLICK_EFFECT, true);
+                        Log.d("LHRTAG", "isSingleClickEffect " + isSingleClickEffect + "System.currentTimeMillis()" + System.currentTimeMillis());
+                        //是否启用单击弹出菜单功能
+                        if (!isSingleClickEffect){
+
+                        }else{
+                            //使用smartkey时是否允许震动提示
+                            if (canVibrate){
+                                Vibrator vibrator = (Vibrator) BroadcastService.this.getSystemService(Context.VIBRATOR_SERVICE);
+                                vibrator.vibrate(50);
+                            }
+                            Intent intentOpenDialogMenuActivity = new Intent();
+                            intentOpenDialogMenuActivity.setAction(SmartKeyAction.ACTION_OPEN_DIALOGMENU_ACTIVITY);
+                            intentOpenDialogMenuActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intentOpenDialogMenuActivity.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                            startActivity(intentOpenDialogMenuActivity);
+                        }
 //                        //runMethod("flashlight", MODE_SINGLE_CLICK, null);
 //                        Execute.runMethod(BroadcastService.this, "flashlight", MODE_SINGLE_CLICK, null);
                     }
                     mTime = System.nanoTime();
                     mClick = 0;
                 }
-            }, 400);
+            }, doubleClickSpeed);
 
 
         } else if (data.equals("long_click")) {//长按广播触发的事件，先去settings中查询获取相关的额外参数，然后根据funcId查询Function表中的相关数据
 
-            Settings settingsBean = mDBService.findSettingsById("10");
-            int funcId = settingsBean.getFuncId();
-            Function functionBean = mDBService.findFunction(funcId + "");
-
-
-            if (functionBean.getFunction_type() == Function.FUN_TYPE_RUN_METHOD) {//如果是通过打开方法类型执行
-                Execute.runMethod(BroadcastService.this, functionBean, settingsBean, -1, null);
-            } else if (functionBean.getFunction_type() == Function.FUN_TYPE_OPEN_APP) {//通过打开app类型执行,这里又分为两种：1、通过选择app设置的方式  2、通过我们预置的方式
-                Execute.openApp(BroadcastService.this, functionBean, settingsBean, -1, null);
+//            Settings settingsBean = mDBService.findSettingsById(MainActivity.POSITION_LONGCLICK);
+//            int funcId = settingsBean.getFuncId();
+//            Function functionBean = mDBService.findFunction(funcId + "");
+//
+//
+//            if (functionBean.getFunction_type() == Function.FUN_TYPE_RUN_METHOD) {//如果是通过打开方法类型执行
+//                Execute.runMethod(BroadcastService.this, functionBean, settingsBean, Execute.MODE_LONG_CLICK, null);
+//            } else if (functionBean.getFunction_type() == Function.FUN_TYPE_OPEN_APP) {//通过打开app类型执行,这里又分为两种：1、通过选择app设置的方式  2、通过我们预置的方式
+//                Execute.openApp(BroadcastService.this, functionBean, settingsBean, Execute.MODE_LONG_CLICK, null);
+//            }
+            //使用smartkey时是否允许震动提示
+            if (canVibrate){
+                Vibrator vibrator = (Vibrator) BroadcastService.this.getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(50);
             }
+            Execute.run(BroadcastService.this, Integer.parseInt(MainActivity.POSITION_LONGCLICK), Execute.MODE_LONG_CLICK, null);
         }
-        return START_REDELIVER_INTENT;
+        return START_NOT_STICKY;
 //        return mStartMode;
     }
 
@@ -195,6 +231,7 @@ public class BroadcastService extends Service {
         return pm.isInteractive();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT_WATCH)
     private boolean isLockScreen() {
         /*
         Settings.System.putInt(getContentResolver(), "smart_hand_up", 0);

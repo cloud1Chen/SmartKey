@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.itel.smartkey.R;
 import com.itel.smartkey.adapter.FrontToolboxFuncAdapter;
@@ -21,6 +22,7 @@ import com.itel.smartkey.base.BaseActivity;
 import com.itel.smartkey.bean.Settings;
 import com.itel.smartkey.service.DBService;
 import com.itel.smartkey.ui.function.ChooseFunctionActivity;
+import com.itel.smartkey.utils.Execute;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +40,7 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
     public static final String SETTINGS_BEAN = "settingsBean";
     public static final int REQUEST_CHOOSE_FUNCTION = 1;
 
+
     private RelativeLayout relative_layout;
 
     private Toolbar mToolbar;
@@ -47,8 +50,10 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
     private List<Settings> mRvDatas = new ArrayList<>();
     private ImageView ivBackground;
     private CardView cardview_fronttoolbox;
+    private TextView tv_drag_to_move_the_shortcuts;
 
     private DBService mDBService;//操作数据库的工具类
+    private int itemPosition;//记录点击的item的位置
 
 
     @Override
@@ -70,13 +75,17 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
         mContext = this;
         mDBService = new DBService(mContext);
 
+        tv_drag_to_move_the_shortcuts = (TextView) findViewById(R.id.tv_drag_to_move_the_shortcuts);
+        tv_drag_to_move_the_shortcuts.setText(R.string.drag_to_move_the_shortcuts);
+
         ivBackground = (ImageView) findViewById(R.id.background);
         startBackgroundAnimtion(mContext, ivBackground);
         cardview_fronttoolbox = (CardView) findViewById(R.id.cardview_fronttoolbox);
 
         //初始化toolbar
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        initToolbar(mToolbar, R.mipmap.pic_back_bar_white, "工具箱", false, null, null);
+        String toolbarTitle = mContext.getString(R.string.toolbox);
+        initToolbar(mToolbar, R.mipmap.pic_back_bar_white, toolbarTitle, false, null, null);
 
         //初始化recycleview
         initRecyclerView();
@@ -96,7 +105,9 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
                 Log.d("LHRTAG", "点击了 " + position + "项");
 
                 Intent intent = new Intent(mContext, ChooseFunctionActivity.class);
-                intent.putExtra(ITEM_REAL_POSITION, position);
+                intent.putExtra(ChooseFunctionActivity.KEY_FUNCTIONMODE, Execute.MODE_SINGLE_CLICK);//设置模式
+                itemPosition = position;
+//                intent.putExtra(ITEM_REAL_POSITION, position);
                 startActivityForResult(intent, REQUEST_CHOOSE_FUNCTION);
             }
         });
@@ -127,8 +138,9 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
      */
     private void initRecyclerViewDatas() {
         List<Settings> mFindedRvDatas = mDBService.findAllSettings();
+        Log.d("LHRTAG", "FrontToolBoxActivity mFindedRvDatas.size " + mFindedRvDatas.size());
         mRvDatas.clear();
-        for (int i=0; i<mFindedRvDatas.size()-2; i++){
+        for (int i = 2; i < mFindedRvDatas.size(); i++){
             mRvDatas.add(mFindedRvDatas.get(i));
         }
         mAdapter.notifyDataSetChanged();
@@ -140,7 +152,7 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_CHOOSE_FUNCTION) {//获取得到的intent，获取其中的funcid
-                int itemPosition = data.getIntExtra(ITEM_REAL_POSITION, 0);
+//                int itemPosition = data.getIntExtra(ITEM_REAL_POSITION, 0);
                 Settings mSettingsBean = mRvDatas.get(itemPosition);
                 int funcId = data.getIntExtra(FUNCTION_FUNCID, -1);
                 Log.d("LHRTAG", "FrontToolBoxActivity funcId " + funcId);
@@ -157,6 +169,10 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
                 String data7 = mTempSettingsBean.getData7();
                 byte[] funcAcIconBytes = mTempSettingsBean.getFuncAcIconBytes();
                 String name = mTempSettingsBean.getFuncAcName();
+                String funcAcIconPath = mTempSettingsBean.getFuncAcIconPath();
+                int funcAcIconId = mTempSettingsBean.getFuncAcIconId();
+                int funcAcNameId = mTempSettingsBean.getFuncAcNameId();
+
 
                 Log.d("LHRTAG", "FrontToolBoxActivity tem packageName " + packageName);
                 Log.d("LHRTAG", "FrontToolBoxActivity tem activityClassName " + activityClass);
@@ -164,34 +180,20 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
                 Log.d("LHRTAG", "FrontToolBoxActivity data5 " + methodType);
 
                 if (mTempSettingsBean != null){
-//                    if (name != null){
                         mSettingsBean.setFuncAcName(name);
-//                    }
-//                    if (funcAcIconBytes != null){
                         mSettingsBean.setFuncAcIconBytes(funcAcIconBytes);
-//                    }
-//                    if (url != null){
                         mSettingsBean.setData1(url);
-//                    }
-//                    if (packageName != null){
                         mSettingsBean.setData2(packageName);
-//                    }
-//                    if (activityClass != null){
                         mSettingsBean.setData3(activityClass);
-//                    }
-//                    if (phonenumber != null){
                         mSettingsBean.setData4(phonenumber);
-//                    }
-//                    if (methodType != null){
                         mSettingsBean.setData5(methodType);
-//                    }
-//                    if (data6 != null){
                         mSettingsBean.setData6(data6);
-//                    }
-//                    if (data7 != null){
                         mSettingsBean.setData7(data7);
-//                    }
+                    mSettingsBean.setFuncAcIconPath(funcAcIconPath);
+                    mSettingsBean.setFuncAcIconId(funcAcIconId);
+                    mSettingsBean.setFuncAcNameId(funcAcNameId);
                 }
+                Log.d("LHRTAG", "FrontToolBoxActivity url " + mSettingsBean.getData1());
                 Log.d("LHRTAG", "FrontToolBoxActivity packageName " + mSettingsBean.getData2());
                 Log.d("LHRTAG", "FrontToolBoxActivity activityClassName " + mSettingsBean.getData3());
                 Log.d("LHRTAG", "FrontToolBoxActivity iconBytes " + mSettingsBean.getFuncAcIconBytes());
@@ -199,7 +201,6 @@ public class FrontToolBoxActivity extends BaseActivity implements View.OnClickLi
                 mAdapter.notifyDataSetChanged();
                 Log.d("LHRTAG", "FrontToolBoxActivity mSettingsBean.getFuncAcId() " + mSettingsBean.getFuncAcId());
                 mDBService.updateSettings(mSettingsBean);
-//                setSettingsBeanToDb();
             }
         }
 

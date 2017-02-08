@@ -23,14 +23,9 @@ public class ContactsUtils {
     private static Uri contactsUri = ContactsContract.Contacts.CONTENT_URI;
     private static Uri phoneUri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
 
-    public static List<ContactsBean> getContacts(Context context, List<ContactsBean> list){
+    public static List<ContactsBean> getContacts(Context context){
         ArrayList<ContactsBean> mList = new ArrayList<>();
         ContentResolver resolver = context.getContentResolver();
-//        if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED){
-//            ActivityCompat.requestPermissions((Activity) context, new String[] {Manifest.permission.WRITE_CONTACTS}, 1);
-//        }else{
-//            Log.d("LHRTAG", "还没有授予权限");
-//        }
         Cursor contactsCursor = resolver.query(contactsUri, null, null, null, null);
 
         while(contactsCursor.moveToNext()){
@@ -56,10 +51,7 @@ public class ContactsUtils {
             phoneCursor = null;
             mList.add(bean);
         }
-        for (int i = 0; i < mList.size(); i++){
-            list.add(mList.get(i));
-        }
-        return list;
+        return mList;
     }
 
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.itel.smartkey">
+          package="com.itel.smartkey"
+          android:sharedUserId="android.uid.system">
 
     <!-- 打电话的权限 -->
     <uses-permission android:name="android.permission.CALL_PHONE"/>
@@ -8,16 +9,19 @@
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <!-- 写联系人权限 -->
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
-
+    <!--打开下拉通知栏的权限-->
     <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>
     <!--打开闪光灯的权限-->
     <uses-permission android:name="android.permission.FLASHLIGHT"/>
-    <!-- 读联系人权限 -->
+    <!-- 做activity悬浮窗的权限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <!-- 震动的权限 -->
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <!-- 写设置的权限 -->
+    <uses-permission android:name="aandroid.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="aandroid.permission."/>
 
 
     <application
@@ -76,7 +80,7 @@
 
         <!-- 设置网址界面 -->
         <activity android:name=".ui.surfnet.SetupSurfNetUrlActivity"
-                  android:theme="@style/translucent"
+                  android:theme="@style/translucentforsetupneturl"
                   android:windowSoftInputMode="adjustResize|stateHidden"
                   >
             <intent-filter>
@@ -111,8 +115,8 @@
 
         <!-- 单击smartey弹出的菜单界面 -->
         <activity android:name=".ui.toolbox.DialogMenuActivity"
-                  android:launchMode="singleTask"
-                  android:theme="@style/translucent">
+                  android:launchMode="singleInstance"
+                  android:theme="@style/CustomTheme">
             <intent-filter>
                 <action android:name="com.itel.smartkey.action.DialogMenuActivity"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -125,6 +129,18 @@
             <intent-filter>
                 <action android:name="com.itel.smartkey.action.ChooseAppsActivity"/>
                 <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.phone.CallActivity"
+                  android:theme="@style/CustomTheme"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:label="@string/app_name"
+                  android:excludeFromRecents="true">
+            <intent-filter>
+                <action android:name="android.intent.action.NEWCALL" />
+                <data android:scheme="call" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 

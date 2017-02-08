@@ -193,7 +193,7 @@ public class FrontToolboxFuncAdapter extends RecyclerView.Adapter<RecyclerView.V
      */
     private void setSettingsBeanToDb() {
         for (int i = 0; i<mDatas.size(); i++ ){
-            int idIncre = i+1;
+            int idIncre = i + 3;
             int reault = mDBService.updateSettingsById(mDatas.get(i), idIncre);
             Log.d("LHRTAG", "FrontToolboxFuncAdapter reault " + reault);
             Log.d("LHRTAG", "FrontToolboxFuncAdapter mDatas.funcId " + mDatas.get(i).getFuncId());

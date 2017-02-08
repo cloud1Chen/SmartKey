@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/iv_toolbox_nofunctin"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="@dimen/iv_layout_nofunction_add_width"
+            android:layout_height="@dimen/iv_layout_nofunction_add_height"
             android:scaleType="fitXY"
             />
     </LinearLayout>

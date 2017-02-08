@@ -2,10 +2,11 @@ package com.itel.smartkey.ui.settings;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 
 import com.itel.smartkey.R;
 import com.itel.smartkey.adapter.SlideAdapter;
@@ -30,6 +31,8 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener {
     private SwitchView switch_click;
     private SwitchView switch_camera;
 
+    private SwitchCompat switch_test;
+
     boolean isvibrateOpened;
     boolean isCanusedInBlack;
     boolean isClickEffect;
@@ -52,8 +55,9 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener {
     protected void initView() {
         mContext = this;
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        String toolbarTitle = mContext.getString(R.string.smart_key_settings);
         String toolbarBackgroundColor = mContext.getString(R.string.toolbar_title_text_color_choose_function);
-        initToolbar(toolbar, R.mipmap.pic_back_bar_black, "设置", false, toolbarBackgroundColor, null);
+        initToolbar(toolbar, R.mipmap.pic_back_bar_black, toolbarTitle, false, toolbarBackgroundColor, null);
         initSwitch();
         initGBSlideBar();
     }
@@ -69,12 +73,12 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener {
                 R.drawable.aaa,
                 R.drawable.aaa});
         mGBSlideBarAdapter.setTextColor(new int[]{
-                Color.BLUE,
-                Color.BLUE,
-                Color.BLUE
+                0xfff33111,
+                0xfff33111,
+                0xfff33111
         });
         gbSlideBar.setAdapter(mGBSlideBarAdapter);
-        gbSlideBarPosition = PreferenceUtils.getInt(mContext, MyContants.KEY_DOUBLE_SPEED_POSION, 0);
+        gbSlideBarPosition = PreferenceUtils.getInt(mContext, MyContants.KEY_DOUBLE_SPEED_POSION, 1);
         gbSlideBar.setPosition(gbSlideBarPosition);
         gbSlideBar.setOnGbSlideBarListener(new GBSlideBarListener() {
             @Override
@@ -95,6 +99,7 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener {
         switch_canuse_in_black = (SwitchView) findViewById(R.id.switch_canuse_in_black);
         switch_click = (SwitchView) findViewById(R.id.switch_click);
         switch_camera = (SwitchView) findViewById(R.id.switch_camera);
+        switch_test = (SwitchCompat) findViewById(R.id.switch_test);
 
         //获取保存的状态值
         isvibrateOpened = PreferenceUtils.getBoolean(mContext, MyContants.KEY_IS_VIBRATE_OPENED);
@@ -107,6 +112,19 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener {
         switch_canuse_in_black.setOpened(isCanusedInBlack);
         switch_click.setOpened(isClickEffect);
         switch_camera.setOpened(isCameraEffect);
+        switch_test.setChecked(isCameraEffect);
+        switch_test.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    Log.d("LHRTAG", "switch_test open"  );
+                    PreferenceUtils.putBoolean(mContext, MyContants.KEY_IS_CAMARA_EFFECT, b);
+                }else{
+                    Log.d("LHRTAG", "switch_test close"  );
+                    PreferenceUtils.putBoolean(mContext, MyContants.KEY_IS_CAMARA_EFFECT, b);
+                }
+            }
+        });
     }
 
     @Override

@@ -16,7 +16,7 @@
     <!-- 阴影 -->
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="12dp"
+        android:layout_height="@dimen/bar_public_projection_height"
         android:scaleType="fitXY"
         android:src="@drawable/bar_shadow"/>
 
@@ -46,7 +46,7 @@
         app:gbs_paddingTop="25dp"
         app:gbs_textSize="12sp"
         app:gbs_textColor="#AAAAAA" />
-    
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -135,7 +135,7 @@
                         android:ellipsize="marquee"
                         android:maxWidth="220dp"
                         android:singleLine="true"
-                        android:text="@string/vibration_feedback"
+                        android:text="@string/enable_on_lock_screen"
                         android:textColor="@color/settings_item2_layout_height_title_textcolor"
                         android:textSize="@dimen/settings_item2_layout_height_title_text_size"/>
 
@@ -147,7 +147,7 @@
                         android:ellipsize="marquee"
                         android:maxWidth="220dp"
                         android:singleLine="true"
-                        android:text="@string/vibration_feedback_subtitle"
+                        android:text="@string/enable_on_lock_screen_subtitle"
                         android:textColor="@color/settings_item2_layout_height_subtitle_textcolor"
                         android:textSize="@dimen/settings_item2_layout_height_subtitle_text_size"/>
                 </LinearLayout>
@@ -279,6 +279,73 @@
                     app:hasShadow="true"
                     app:primaryColor="#e44420"
                     app:primaryColorDark="#acaaaa"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#c9c6c6"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item2_layout_height"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_settings_item2_title_camera_switch_test"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="marquee"
+                        android:maxWidth="220dp"
+                        android:singleLine="true"
+                        android:text="@string/camera_switch"
+                        android:textColor="@color/settings_item2_layout_height_title_textcolor"
+                        android:textSize="@dimen/settings_item2_layout_height_title_text_size"/>
+
+                    <TextView
+                        android:id="@+id/tv_settings_item2_subtitle_camera_switch_test"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:ellipsize="marquee"
+                        android:singleLine="true"
+                        android:maxWidth="220dp"
+                        android:text="@string/camera_switch_subtitle"
+                        android:textColor="@color/settings_item2_layout_height_subtitle_textcolor"
+                        android:textSize="@dimen/settings_item2_layout_height_subtitle_text_size"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"/>
+
+                <!--
+                android:typeface="normal":设置字体类型
+                android:track="":设置开关的轨迹
+                android:textOff="开"：设置开关checked的文字
+                android:textOn="关"：设置开关关闭时的文字
+                android:thumb="":设置开关的图片
+                android:switchMinWidth=""：开关最小宽度
+                android:switchPadding="":设置开关 与文字的空白距离
+                android:switchTextAppearance="":设置文本的风格
+                android:checked="":设置初始选中状态
+                android:splitTrack="true":是否设置一个间隙，让滑块与底部图片分隔
+                -->
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/switch_test"
+                    android:layout_marginEnd="12dp"
+                    android:theme="@style/mySwitch"
+                    app:switchMinWidth="54dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <View

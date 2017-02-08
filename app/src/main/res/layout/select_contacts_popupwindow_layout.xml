@@ -16,8 +16,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/dividerColors"
+            android:layout_height="2dp"
+            android:background="@drawable/rv_item_divider"
             />
 
         <LinearLayout

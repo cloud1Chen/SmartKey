@@ -17,7 +17,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/bar_shadow"
         android:layout_width="match_parent"
-        android:layout_height="12dp"/>
+        android:layout_height="@dimen/bar_public_projection_height"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleview_choose_function"

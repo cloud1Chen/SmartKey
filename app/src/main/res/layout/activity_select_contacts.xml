@@ -6,6 +6,7 @@
     android:id="@+id/activity_select"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F3F4F5"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
@@ -18,7 +19,7 @@
     <!-- 阴影 -->
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="6dp"
+        android:layout_height="@dimen/bar_public_projection_height"
         android:scaleType="fitXY"
         android:src="@drawable/bar_shadow"/>
 

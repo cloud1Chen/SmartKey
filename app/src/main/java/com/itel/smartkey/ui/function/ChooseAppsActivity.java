@@ -58,7 +58,8 @@ public class ChooseAppsActivity extends BaseActivity{
         pinyinComparator = new PinyinComparator();//初始化拼音比较器
         //toobar初始化
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        initToolbar(toolbar, R.mipmap.pic_back_bar_black, "选择应用", false, "505050", "f4f4f4");
+        String toolbarTitle = mContext.getString(R.string.choose_apps);
+        initToolbar(toolbar, R.mipmap.pic_back_bar_black, toolbarTitle, false, "505050", "f4f4f4");
         initRecycleView();
         initWaveSideBar();
     }
@@ -161,7 +162,7 @@ public class ChooseAppsActivity extends BaseActivity{
             }
         }
         String[] b = mLetters.toArray(new String[mLetters.size()]);
-        waveSideBar.setIndexItems(b);
+        waveSideBar.setIndexItems(b);//给侧滑菜单栏设置字符
     }
 
     /**

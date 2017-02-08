@@ -3,6 +3,7 @@ package com.itel.smartkey.bean;
 import android.graphics.Bitmap;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 选择联系人界面的联系人的实体类
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  */
 
 public class ContactsBean extends ShortModel{
-    private ArrayList<String> phones;
+    private List<String> phones;
     private Bitmap contactsBitmap;
     private byte[] contactsPhotoBytes;
 
@@ -48,7 +49,7 @@ public class ContactsBean extends ShortModel{
         this.name = name;
     }
 
-    public ArrayList<String> getPhones() {
+    public List<String> getPhones() {
         return phones;
     }
 

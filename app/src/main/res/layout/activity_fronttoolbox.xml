@@ -42,6 +42,17 @@
                     android:layout_height="match_parent">
                 </android.support.v7.widget.RecyclerView>
             </android.support.v7.widget.CardView>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/cardview_fronttoolbox"
+                android:layout_alignStart="@+id/cardview_fronttoolbox"
+                android:id="@+id/tv_drag_to_move_the_shortcuts"
+                android:textSize="@dimen/tv_drag_to_move_the_shortcuts_textsize"
+                android:textColor="@color/tv_drag_to_move_the_shortcuts_textcolor"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </RelativeLayout>
     </FrameLayout>
 

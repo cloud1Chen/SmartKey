@@ -3,6 +3,7 @@ package com.itel.smartkey.application;
 import android.app.Application;
 import android.util.Log;
 
+import com.itel.smartkey.MainActivity;
 import com.itel.smartkey.bean.Function;
 import com.itel.smartkey.bean.Settings;
 import com.itel.smartkey.database.FunParser;
@@ -42,22 +43,23 @@ public class MyApplication extends Application {
      * 初始化set_table
      */
     private void initSetTable() {//初始化set_table
-        for (int i = 0; i < 9; i++){//设置单击对应的9项，默认为空
+        Settings doubleClickDefaultBean = new Settings();//双击默认为手电筒
+        doubleClickDefaultBean.setFuncId(7);
+        doubleClickDefaultBean.setFuncAcId(Integer.parseInt(MainActivity.POSITION_DOUBLECLICK));
+        doubleClickDefaultBean.setData5(Function.METHOD_TYPE_OPEN_FLASHLIGHT + "");
+        mDBService.addSetting(doubleClickDefaultBean);
+
+        Settings longClickDefaultBean = new Settings();//长按默认为拍照
+        longClickDefaultBean.setFuncAcId(Integer.parseInt(MainActivity.POSITION_LONGCLICK));
+        longClickDefaultBean.setFuncId(2);
+        mDBService.addSetting(longClickDefaultBean);
+
+        for (int i = 3; i < 12; i++){//设置单击对应的9项，默认为空
             Settings setBean = new Settings();
             setBean.setFuncAcId(i);
             setBean.setFuncId(-1);
             mDBService.addSetting(setBean);
         }
-        Settings doubleClickDefaultBean = new Settings();//双击默认为拍照
-        doubleClickDefaultBean.setFuncId(2);
-        doubleClickDefaultBean.setFuncAcId(9);
-        mDBService.addSetting(doubleClickDefaultBean);
-
-        Settings longClickDefaultBean = new Settings();//长按默认为打开下拉通知栏
-        longClickDefaultBean.setFuncAcId(10);
-        longClickDefaultBean.setFuncId(5);
-        longClickDefaultBean.setData5("5");
-        mDBService.addSetting(longClickDefaultBean);
     }
 
     /**

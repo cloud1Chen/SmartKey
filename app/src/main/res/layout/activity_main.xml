@@ -89,8 +89,8 @@
                     <View
                         android:id="@+id/ll_divider"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="#FFFFFF"/>
+                        android:layout_height="@dimen/divider_main_ll_height"
+                        android:background="@color/divider_main_ll_color"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -129,7 +129,7 @@
                                     android:gravity="center"
                                     android:singleLine="true"
                                     android:text="@string/click"
-                                    android:textColor="#343434"
+                                    android:textColor="@color/tv_main_click_color"
                                     android:textSize="14sp"/>
 
                                 <TextView
@@ -141,16 +141,16 @@
                                     android:gravity="center"
                                     android:singleLine="true"
                                     android:text="openCamera"
-                                    android:textColor="#8d8d8d"
+                                    android:textColor="@color/tv_main_click_sub_color"
                                     android:textSize="10sp"/>
                             </LinearLayout>
                         </RelativeLayout>
 
                         <!-- 分割线 -->
                         <View
-                            android:layout_width="1dp"
+                            android:layout_width="@dimen/divider_main_ll_height"
                             android:layout_height="match_parent"
-                            android:background="#e5e5e5"/>
+                            android:background="@color/divider_main_buttongroup_color"/>
 
                         <!-- 双击 -->
                         <RelativeLayout
@@ -184,7 +184,7 @@
                                     android:gravity="center"
                                     android:singleLine="true"
                                     android:text="@string/double_click"
-                                    android:textColor="#343434"
+                                    android:textColor="@color/tv_main_click_color"
                                     android:textSize="14sp"/>
 
                                 <TextView
@@ -196,16 +196,16 @@
                                     android:gravity="center"
                                     android:singleLine="true"
                                     android:text="openCamera"
-                                    android:textColor="#8d8d8d"
+                                    android:textColor="@color/tv_main_click_sub_color"
                                     android:textSize="10sp"/>
                             </LinearLayout>
                         </RelativeLayout>
 
                         <!-- 分割线 -->
                         <View
-                            android:layout_width="1dp"
+                            android:layout_width="@dimen/divider_main_ll_height"
                             android:layout_height="match_parent"
-                            android:background="#e5e5e5"/>
+                            android:background="@color/divider_main_buttongroup_color"/>
 
                         <!-- 长按 -->
                         <RelativeLayout
@@ -239,7 +239,7 @@
                                     android:gravity="center"
                                     android:singleLine="true"
                                     android:text="@string/long_click"
-                                    android:textColor="#343434"
+                                    android:textColor="@color/tv_main_click_color"
                                     android:textSize="14sp"/>
 
                                 <TextView
@@ -251,7 +251,7 @@
                                     android:gravity="center"
                                     android:singleLine="true"
                                     android:text="openCamera"
-                                    android:textColor="#8d8d8d"
+                                    android:textColor="@color/tv_main_click_sub_color"
                                     android:textSize="10sp"/>
                             </LinearLayout>
                         </RelativeLayout>

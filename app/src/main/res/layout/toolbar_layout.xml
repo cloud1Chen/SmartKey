@@ -9,7 +9,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:titleTextAppearance="@style/Toolbar.TitleText"
+        toolbar:titleTextAppearance="@style/Toolbar.TitleText"
         toolbar:titleTextColor="@color/colorToolBarTitleText">
         <!--android:layout_height="?attr/actionBarSize"-->
     </android.support.v7.widget.Toolbar>

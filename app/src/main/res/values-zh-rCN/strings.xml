@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">SmartKey</string>
+    <string name="app_name">Smart Key</string>
     <string name="select_function">功能菜单</string>
-    <string name="please_select_number">请选择号码</string>
+
 
     <!-- add lhr 20170119  -->
     <string name="open_an_app">打开APP</string>
@@ -18,16 +18,17 @@
     <string name="share_pic_to_facebook">拍照并分享相片到Facebook</string>
     <string name="sos">SOS</string>
     
-    <string name="no_add_any_function">您还没有添加任何入口</string>
-    <string name="add_now">立刻添加</string>
+    <string name="no_add_any_function">您还没有添加快捷入口</string>
+    <string name="add_now">立即添加</string>
 
     <!-- 主界面文案 -->
+    <string name="openmenu">打开菜单</string>
     <string name="smartkey">Smart Key</string>
     <string name="set_functions">设置手机背后的按键功能</string>
     <string name="click">设置单击</string>
     <string name="double_click">设置双击</string>
     <string name="long_click">设置长按</string>
-    <string name="toolbar_title_choose_function">快捷菜单</string>
+    <string name="toolbar_title_choose_function">选择功能</string>
 
     <!-- 设置文案 -->
     <string name="smart_key_settings">Smart Key设置</string>
@@ -37,6 +38,8 @@
     <string name="fast">快</string>
     <string name="vibration_feedback">震动反馈</string>
     <string name="vibration_feedback_subtitle">使用Smart Key时震动提示</string>
+    <string name="enable_on_lock_screen">锁屏下启用</string>
+    <string name="enable_on_lock_screen_subtitle">锁屏时Smart Key可用</string>
     <string name="one_click_switch">单击键开关</string>
     <string name="one_click_switch_subtitle">关闭后单击菜单功能不可用</string>
     <string name="camera_switch">相机</string>
@@ -46,6 +49,27 @@
     <string name="enter_an_url">输入网址</string>
     <string name="setup_url_cancel">取消</string>
     <string name="setup_url_ok">确定</string>
+
+    <!-- toolbar颜色 -->
+    <string name="toolbar_title_text_color_choose_function">505050</string>
+    <string name="toolbar_background_color_choose_function">F3F4F5</string>
+    
+    <!--工具箱文案-->
+    <string name="toolbox">工具箱</string>
+    <string name="drag_to_move_the_shortcuts">长按移动位置</string>
+
+    <!--选择联系人文案-->
+    <string name="please_select_number">选择号码</string>
+    <string name="choose_contacts">选择联系人</string>
+    <string name="access_the_contacts_permission_content">您只有允许Smart Key访问通讯录，才能使用Smart Key的一键拨号功能。</string>
+    <string name="access_the_contacts_permission_cancel">【取消】</string>
+    <string name="access_the_contacts_permission_settings">【前往设置】</string>
+    <string name="access_the_dialog_permission_content">您只有允许Smart Key访拨打电话，才能使用Smart Key的一键拨号功能。</string>
+    <string name="access_the_dialog_permission_cancel">【取消】</string>
+    <string name="access_the_dialog_permission_settings">【前往设置】</string>
+
+    <!--选择APPS文案-->
+    <string name="choose_apps">打开APP</string>
 
 
 </resources>

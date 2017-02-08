@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="102dp"
                 android:layout_height="120dp">
 
@@ -10,21 +9,23 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/iv_toolbox_name_with_icon"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="@dimen/iv_toolbox_name_with_icon_width"
+            android:layout_height="@dimen/iv_toolbox_name_with_icon_height"
             android:scaleType="fitXY"
-            android:src="@mipmap/pic_deleted"/>
+            />
 
         <TextView
             android:id="@+id/tv_toolbox_name_with_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:singleLine="true"
+            android:ellipsize="marquee"
             android:text="名字"
             android:textColor="#505050"
             android:textSize="12sp"/>
@@ -38,10 +39,10 @@
     <!--android:layout_height="wrap_content">-->
     <ImageView
         android:id="@+id/iv_toolbox_name_with_icon_delete"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="62dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="12dp"
         android:clickable="true"
         android:scaleType="fitXY"
         android:src="@mipmap/pic_deleted"/>

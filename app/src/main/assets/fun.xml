@@ -124,8 +124,8 @@ id name icon function function_type parameter single_click_enable double_click_e
         <function_type>1</function_type>
         <function_app_type>2</function_app_type>
         <parameter></parameter>
-        <single_click_enable>1</single_click_enable>
-        <double_click_enable>1</double_click_enable>
+        <single_click_enable>2</single_click_enable>
+        <double_click_enable>2</double_click_enable>
         <long_click_enable>1</long_click_enable>
         <close_enable>1</close_enable>
         <lock_enable>1</lock_enable>
